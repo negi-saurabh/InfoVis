@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Information Visualization: Course Project</title>
+
+    <!--Import Style Sheet-->
+    <link rel='stylesheet' href='css/dashboard.css' type='text/css'>
+    </style>
+    <!--Bootstrap CSS-->
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet">
+    <!--Import D3-->
+    <script type="text/javascript" src="https://d3js.org/d3.v3.js"></script>
+    <!--Import D3 queue-->
+    <script type="text/javascript" src="https://d3js.org/queue.v1.min.js"></script>
+    <!--Import jQuery-->
+    <script type="text/javascript" src="https://code.jquery.com/jquery-latest.js"></script>
+    <!--Import Bootstrap Javascript-->
+    <script type="text/javascript" src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js">
+        >
+    </script>
+    <!--Import D3 topoJSON-->
+    <script type="text/javascript" src="https://d3js.org/topojson.v1.min.js"></script>
+    <!--Import GOOGLE Maps-->
+    <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?sensor=false"></script>
+
+    <!--Import D3 Tooltip CREDIT ELSEWHERE (Copyright (c) 2013 Justin Palmer)-->
+    <script type="text/javascript" src="js/d3tip.js"></script>
+
+</head>
+
+<body>
+
+    <div class="container">
+
+        <header>
+            <h1>Information Visualization: Course Project</h1>
+        </header>
+
+        <div id="tabs" class="tabbable">
+            <ul class="nav nav-tabs">
+                <li class="active"><a class="description_tab" href="#description" data-toggle="tab">Description</a></li>
+                <li><a class="analysis_tab" href="#analysis" data-toggle="tab">Analysis</a></li>
+                <li><a class="map_tab" href="#mapping" data-toggle="tab">Map</a></li>
+            </ul>
+        </div>
+
+    </div>
+    <div class="container-fluid">
+        <div class="tab-content">
+            <div id="description" class="tab-pane active">
+                <div class="container">
+                    <h3>Problem Statement</h3>
+                    <p>
+                        Research has shown that there are discrepancies between the expected theoretical and actual
+                        energy consompution of households in the Netherlands. This project is a demonstration of
+                        analysis methods that can be used to explore these discrepencies. All buildings in the
+                        Netherlands are given an energy label that is used to identify efficiency. The discrepencies
+                        observed are also effected by assigned energy label.
+                        <br><br>
+                        Specifically, data from the municipality of Amsterdam is used to find certain indicators that
+                        may be influencing this discrepancy in energy consumption. A simple linear regression was
+                        employed to predict an energy consumption value using the data available. This prediction is
+                        calculated on the average values for each neighborhood grouping (buurtcombinatie) in Amsterdam.
+                        <br><br>
+                        <strong>The Bar Chart</strong> below emphasizes the discrepency between actual and theoretical
+                        values for energy consumption for each energy label. The predicted value calculated is shown
+                        averaged across each neighborhood group for that energy label. Our new predicted value helps
+                        combat the discrepency described above, by considering important influential factors of energy
+                        consumption.
+                    </p>
+                    <d3barchart></d3barchart>
+                </div>
+            </div>
+            <div id="analysis" class="tab-pane">
+                <div class="container">
+                    <h3>Analysis</h3>
+                    <p>
+                        <strong>The Scatterplot</strong> visualizes the dependency of each variable on actual energy
+                        consumption. Each dot represents the average of buildings within an energy label, for each
+                        neighborhood group in Amsterdam. Select a different variable to visualize it on the graph.
+                    </p>
+                    <div id="dropdowns">
+                        <select id="regress">
+                            <option value="predicted" selected>Predicted</option>
+                            <option value="avg_building_year">Building Year</option>
+                            <option value="avg_square_meters">Square Meters</option>
+                            <option value="avg_home_occupancy">Home Occupancy</option>
+                            <option value="avg_home_size_rooms">Number of Rooms</option>
+                            <option value="average_property_value">Property Value</option>
+                            <option value="avg_length_residence_years">Length of Stay</option>
+                            <option value="avg_disp_income_ink">Disposable Income</option>
+                        </select>
+                    </div>
+                    <br><br>
+                    <d3scatterplot></d3scatterplot>
+                </div>
+            </div>
+
+
+            <section id="mapping" class="tab-pane">
+                <div class="container">
+                    <h3>Amsterdam Map</h3>
+                    <p>
+                        <strong>The Map</strong> below shows neighborhood groups colored by the average building value,
+                        selected from the dropdown.
+                    </p>
+                    <div id="dropdowns">
+                        <select id="color_map">
+                            <option value="predicted" selected>Predicted</option>
+                            <option value="avg_building_year">Building Year</option>
+                            <option value="avg_square_meters">Square Meters</option>
+                            <option value="avg_home_occupancy">Home Occupancy</option>
+                            <option value="avg_home_size_rooms">Number of Rooms</option>
+                            <option value="average_property_value">Property Value</option>
+                            <option value="avg_length_residence_years">Length of Stay</option>
+                            <option value="avg_disp_income_ink">Disposable Income</option>
+                        </select>
+                    </div>
+                    <div id="map_legend" class="legend"></div>
+                    <!--Google Map Goes Here-->
+                    <div id="map"></div>
+                </div>
+            </section>
+        </div>
+
+        <footer>
+            <div id="foot" class="container">
+                <p class="text-muted">
+                    <i>the aggregation of data in this report may cause misrepresentation of some figures<br>this tool
+                        is a demonstration prototype</i>
+                </p>
+                <p>2016</p>
+                <p><b>Author</b><br>Kain Nanne</p>
+                <p><a href="https://github.com/knanne/uva_infoviz_2016">Code</a></p>
+            </div>
+        </footer>
+    </div>
+
+    <!--Activate Scripts on Tab Click-->
+    <script>
+        $.getScript("js/barchart.js");
+
+        $(".analysis_tab").click(function () {
+            $.getScript("js/scatterplot.js");
+        });
+
+        $(".map_tab").click(function () {
+            $.getScript("js/map.js");
+        })
+    </script>
+
+    </script>
+
+</body>
+
+</html>
