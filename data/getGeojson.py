@@ -16,6 +16,22 @@ safeDf = initDf_safe[['district_1_in_area',
                  'safety_index_2014', 'safety_index_2015', 'safety_index_2016', 'safety_index_2017', 'polygon_of_district_1_in_area']]
 safeDf.rename(columns={'district_1_in_area': 'district'}, inplace=True)
 
+safeDf2 = initDf_safe[['district_2_in_area',
+                      'safety_index_2014', 'safety_index_2015', 'safety_index_2016', 'safety_index_2017', 'polygon_of_district_2_in_area']]
+safeDf2.rename(columns={'district_2_in_area': 'district'}, inplace=True)
+safeDf2.rename(columns={'polygon_of_district_2_in_area': 'polygon_of_district_1_in_area'}, inplace=True)
+
+safeDf3 = initDf_safe[['district_3_in_area',
+                       'safety_index_2014', 'safety_index_2015', 'safety_index_2016', 'safety_index_2017', 'polygon_of_district_3_in_area']]
+safeDf3.rename(columns={'district_3_in_area': 'district'}, inplace=True)
+safeDf3.rename(columns={'polygon_of_district_3_in_area': 'polygon_of_district_1_in_area'}, inplace=True)
+
+# delete disrict rows which have empty data
+safeDf2.dropna(subset=["district"])
+safeDf3.dropna(subset=["district"])
+
+safeDf_merge = pd.concat([safeDf, safeDf2, safeDf3])
+
 def computeScore(sub, total):
     score = sub/total
     # score_norm = (score - score.min()) / (dscore.max() - score.min())
@@ -44,12 +60,14 @@ statsDf = initDf_stats[['district',
                         'population_stability_score_2014', 'population_stability_score_2015', 'population_stability_score_2016', 'population_stability_score_2017']]
 
 #living condition score = (a*population stability)+(b*safety)
-result = pd.merge(safeDf, statsDf)
+result = pd.merge(safeDf_merge, statsDf)
 for year in years:
     result['living_condition_score_' + year] = 0.3*result['safety_index_'+year] + 0.7*result['population_stability_score_' + year]
 
 # delete Zuidas and Elzenhagen, because they miss some values
-result.dropna(axis=0, how='any', inplace=True)
+# result.dropna(axis=0, how='any', inplace=True)
+# get zero to missing data
+result = result.fillna(0)
 
 for year in years:
     result['population_stability_score_'+year] = result['population_stability_score_' + year].astype('int')
