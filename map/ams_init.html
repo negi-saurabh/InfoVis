@@ -111,7 +111,8 @@
                 .style('cursor', 'pointer')
                 .on('mouseover', function (d) {
                     tooltip.style("opacity", 1)
-                .html(d.properties.district + '<br />'+ "living condition score: "+d.properties[currentKey] + '<br />'+ "safe score: "+d.properties[safe_keys[keys.indexOf(currentKey)]]+'<br />'+ "population stability score: "+d.properties[popu_keys[keys.indexOf(currentKey)]])
+                .html(d.properties.district )
+                // + '<br />' + "living condition score: " + d.properties[currentKey] + '<br />' + "safe score: " + d.properties[safe_keys[keys.indexOf(currentKey)]] + '<br />' + "population stability score: " + d.properties[popu_keys[keys.indexOf(currentKey)]]
                         .style("left", (d3.event.pageX + 10) + "px")
                         .style("top", (d3.event.pageY - 40) + "px");
                     var self = d3.select(this);
