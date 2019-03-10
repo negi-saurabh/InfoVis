@@ -1,10 +1,11 @@
 <!DOCTYPE html>
 <html lang="en">
 
-<head>            
+<head>
     <meta charset="utf-8">
-    <title>IV: Group11</title>
+    <title>Panoramic Demo</title>
     <script src="https://d3js.org/d3.v5.js"></script>
+    <script src="js/three.js"></script>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     <style>
         path {
@@ -35,13 +36,153 @@
     <svg width="800" height="600">
         <g id="mapLayer"></g>
     </svg>
+
+    <svg width="200" height="150">
+        <g id="subLayer"></g>
+    </svg>
+
     <script type="text/javascript">
+
+    var updatePic = function () {
+        d3.selectAll('canvas')
+            .remove()
+    }
+
+     async function panoramic (districtName) {
+      updatePic();
+
+      var manualControl = false;
+      var longitude = 0;
+      var latitude = 0;
+      var savedX;
+      var savedY;
+      var savedLongitude;
+      var savedLatitude;
+
+      let picData = await d3.csv("panoramic.csv");
+      let dataFind = {};
+
+      picData.forEach(function (urlRow) {
+          dataFind[urlRow.district] = urlRow.img_url;
+      });
+
+      var picUrl = dataFind[districtName]
+      //console.log(districtName);
+      //console.log(picUrl);
+     //  d3.csv("panoramic.csv", function (csvdata) {
+     //    imgKeys = ['img_url']
+     // });
+
+      // var panoramasArray = ["Grachtengordel-Zuid.jpg","Burgwallen-Nieuwe Zijde.jpg","Grachtengordel-West.jpg","Grachtengordel-Zuid.jpg","Nieuwmarkt-Lastage.jpg"];
+      // var panoramaNumber = Math.floor(Math.random()*panoramasArray.length);
+
+      // var districtName;
+      // var imgUrl;
+      // imgurl = 'https://data.amsterdam.nl/panorama/2018/09/19/TMX7316060226-000318/pano_0000_000000/equirectangular/panorama_2000.jpg'
+
+      // setting up the renderer
+      renderer = new THREE.WebGLRenderer();
+      renderer.setSize(384, 216);
+      document.body.appendChild(renderer.domElement);
+
+      // creating a new scene
+      var scene = new THREE.Scene();
+
+      // adding a camera
+      var camera = new THREE.PerspectiveCamera(75, 384 / 216, 1, 1000);
+      camera.target = new THREE.Vector3(0, 0, 0);
+
+      // creation of a big sphere geometry
+      var sphere = new THREE.SphereGeometry(100, 100, 40);
+      sphere.applyMatrix(new THREE.Matrix4().makeScale(-1, 1, 1));
+
+      // creation of the sphere material
+      var sphereMaterial = new THREE.MeshBasicMaterial();
+      THREE.ImageUtils.crossOrigin = '';
+      sphereMaterial.map = THREE.ImageUtils.loadTexture(picUrl)
+
+      // geometry + material = mesh (actual object)
+      var sphereMesh = new THREE.Mesh(sphere, sphereMaterial);
+      scene.add(sphereMesh);
+
+      // listeners
+      document.addEventListener("mousedown", onDocumentMouseDown, false);
+      document.addEventListener("mousemove", onDocumentMouseMove, false);
+      document.addEventListener("mouseup", onDocumentMouseUp, false);
+
+               render();
+
+               function render(){
+
+        requestAnimationFrame(render);
+
+        if(!manualControl){
+          longitude += 0.1;
+        }
+
+        // limiting latitude from -85 to 85 (cannot point to the sky or under your feet)
+                    latitude = Math.max(-75, Math.min(75, latitude));
+
+        // moving the camera according to current latitude (vertical movement) and longitude (horizontal movement)
+        camera.target.x = 500 * Math.sin(THREE.Math.degToRad(90 - latitude)) * Math.cos(THREE.Math.degToRad(longitude));
+        camera.target.y = 500 * Math.cos(THREE.Math.degToRad(90 - latitude));
+        camera.target.z = 500 * Math.sin(THREE.Math.degToRad(90 - latitude)) * Math.sin(THREE.Math.degToRad(longitude));
+        camera.lookAt(camera.target);
+
+        // calling again render function
+        renderer.render(scene, camera);
+
+      }
+
+      // when the mouse is pressed, we switch to manual control and save current coordinates
+      function onDocumentMouseDown(event){
+
+        event.preventDefault();
+
+        manualControl = true;
+
+        savedX = event.clientX;
+        savedY = event.clientY;
+
+        savedLongitude = longitude;
+        savedLatitude = latitude;
+
+      }
+
+      // when the mouse moves, if in manual contro we adjust coordinates
+      function onDocumentMouseMove(event){
+
+        if(manualControl){
+          longitude = (savedX - event.clientX) * 0.1 + savedLongitude;
+          latitude = (event.clientY - savedY) * 0.1 + savedLatitude;
+        }
+
+      }
+
+      // when the mouse is released, we turn manual control off
+      function onDocumentMouseUp(event){
+
+        manualControl = false;
+
+      }
+
+      // pressing a key (actually releasing it) changes the texture map
+      // document.onkeyup = function(event){
+      //
+      //   panoramaNumber = (panoramaNumber + 1) % panoramasArray.length
+      //   sphereMaterial.map = THREE.ImageUtils.loadTexture(panoramasArray[panoramaNumber])
+      //
+      //     }
+
+    }
+
+
         async function choropleth() {
             let svg = d3.select("svg");
             let width = parseInt(svg.attr("width"));
             let height = parseInt(svg.attr("height"));
 
-            let projection = d3.geoAlbers() 
+            let projection = d3.geoAlbers()
                 .center([4.9, 52.366667])
                 .parallels([51.5, 51.49])
                 .rotate(120)
@@ -65,8 +206,11 @@
             let json = await d3.json("map.geojson");
 
 
-            // Load in the agriculture data; 
+            // Load in the agriculture data;
             let livingData = await d3.csv("score.csv");
+
+            // Load in the panoramic data;
+            let picUrl = await d3.csv("panoramic.csv");
 
             // Set input domain for color scale based on the lowest and highest values in the data
             color.domain([
@@ -86,6 +230,8 @@
                 dataLookup[scoreRow.district] = parseFloat(scoreRow.living_condition_score_2017);
             });
 
+
+
             // Now we add the data values to the geometry for every district
             json.features.forEach(function (feature) {
                 feature.properties.score = dataLookup[feature.properties.district];
@@ -95,6 +241,7 @@
                 .append("div")
                 .attr("id", "tooltip")
                 .style("opacity", 0);
+
             // Bind data and create one path per GeoJSON feature
             d3.select("#mapLayer").selectAll("path")
                 .data(json.features)
@@ -116,6 +263,7 @@
                         .style("top", (d3.event.pageY - 40) + "px");
                     var self = d3.select(this);
                     self.style('fill', 'blue');
+                    //console.log(d.properties.district);
                 })
                 .on('mousemove', function (d) {
                     tooltip
@@ -132,9 +280,13 @@
                         });
                 })
                 .on('click', function (d, i) {
+
                     var self = d3.select(this);
                     self.style('fill', 'red');
+                    panoramic(d.properties.district);
+
                 });
+
             var clickKey = function () {
                 currentKey = d3.select(this).attr('value');
                 d3.selectAll('.keys')
@@ -153,8 +305,11 @@
                     });
             }
 
+
+
             d3.csv("score.csv", function (rows) {
                 keys =['living_condition_score_2014','living_condition_score_2015','living_condition_score_2016','living_condition_score_2017'];
+                //console.log(keys[0]);
                 safe_keys = ['safety_index_2014','safety_index_2015','safety_index_2016','safety_index_2017'];
                 popu_keys =['population_stability_score_2014','population_stability_score_2015','population_stability_score_2016','population_stability_score_2017'];
                 svg.selectAll('.keys')
@@ -185,6 +340,8 @@
             });
 
         };
+
+
         choropleth();
     </script>
 </body>
