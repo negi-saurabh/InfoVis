@@ -1,0 +1,64 @@
+
+.bar {
+	fill: steelblue;
+}
+
+
+.bar:hover {
+	fill: DarkOrange;
+}
+
+body {
+	font: 14px sans-serif;
+  }
+  
+  .chart-label {
+	font-size: 25px;
+  }
+  
+  .y-axis-label {
+	white-space: nowrap;
+  }
+  
+  #bubble-chart .legend {
+	position: absolute;
+	bottom: 40px;
+	right: 0;
+	left: auto;
+	width: 170px;
+	height: 110px;
+  }
+  
+  #bubble-chart {
+	position: relative;
+	height: 480px;
+  }
+  
+  #bubble-chart .point {
+	stroke: transparent;
+  }
+  
+  #bubble-chart text.label {
+	stroke: none;
+	fill: #000;
+	font: 12px sans-serif;
+  }
+  
+  .container {
+	position: relative;
+  }
+  
+  #legend {
+	position: absolute;
+	bottom: 0;
+	right: 0;
+  }
+  
+  .bubbles {
+	stroke-width: 1px;
+	stroke: black;
+	opacity: .8
+  }
+  .bubbles:hover {
+	stroke: black;
+  }
