@@ -27,7 +27,7 @@ function barChart(district){
               safetyIndex.push({"key": 2015, "value": parseInt(files[1][i].safety_index_2015)});
               safetyIndex.push({"key": 2016, "value": parseInt(files[1][i].safety_index_2016)});
               safetyIndex.push({"key": 2017, "value": parseInt(files[1][i].safety_index_2017)});
-              safetyIndex.push({"key": 2018, "value": 0});
+             
         }
         };
       
@@ -69,7 +69,7 @@ function barChart(district){
             }); 
         
           // Scale the range of the data
-          var x = d3.scaleBand().domain(Xdatas).rangeRound([0, width]).padding(0.1);
+          var x = d3.scalePoint().domain(Xdatas).rangeRound([0, width]).padding(0.1);
           y0.domain([0, d3.max(population, function(d) {return Math.max(d.value);})]);
           y1.domain([0, d3.max(safetyIndex, function(d) {return Math.max(d.value); })]);
         
@@ -77,8 +77,9 @@ function barChart(district){
           svg.append("path")
               .data([population])
               .attr("class", "line")
-              .style("stroke", "blue")
+              .style("stroke", "steelblue")
               .style("fill","none")
+              .style('stroke-width','3px')
               .attr("d", valueline);
         
           //Add the valueline2 path.
@@ -86,6 +87,7 @@ function barChart(district){
               .data([safetyIndex])
               .attr("class", "line")
               .style("stroke", "red")
+              .style('stroke-width','3px')
               .style("fill","none")
               .attr("d", valueline2);
         
@@ -104,11 +106,9 @@ function barChart(district){
               .attr("class", "axisRed")
               .attr("transform", "translate( " + width + ", 0 )")
               .call(d3.axisRight(y1));
-        
-     }).catch(function(err) {
-        // handle error 
-    })
-};
+
+      });
+    }
 
 barChart("Kinkerbuurt");
 
