@@ -31,3 +31,9 @@ svg {
 .container {
     line-height: 70%
 }
+
+.NB {
+    width:1000px; 
+    position: relative; 
+    margin: auto auto
+}
