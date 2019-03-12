@@ -10,7 +10,7 @@ function barChart(district){
         // files[1] will contain ams_safety_index_districts.csv
         var population = [];
         var safetyIndex = [];
-
+        var highImpartCrime = [];
         for (var i=0; i < files[0].length; i++) {
           if(files[0][i].district==district){
               population.push({"key": 2014, "value": parseInt(files[0][i].population_2014)});
@@ -26,7 +26,12 @@ function barChart(district){
               safetyIndex.push({"key": 2014, "value": parseInt(files[1][i].safety_index_2014)});
               safetyIndex.push({"key": 2015, "value": parseInt(files[1][i].safety_index_2015)});
               safetyIndex.push({"key": 2016, "value": parseInt(files[1][i].safety_index_2016)});
-              safetyIndex.push({"key": 2017, "value": parseInt(files[1][i].safety_index_2017)});
+              safetyIndex.push({"key": 2017, "value": parseInt(files[1][i].safety_index_2017)});  
+
+              highImpartCrime.push({"key": 2014, "value": parseInt(files[1][i].high_impact_crime_2014)});
+              highImpartCrime.push({"key": 2015, "value": parseInt(files[1][i].high_impact_crime_2015)});
+              highImpartCrime.push({"key": 2016, "value": parseInt(files[1][i].high_impact_crime_2016)});
+              highImpartCrime.push({"key": 2017, "value": parseInt(files[1][i].high_impact_crime_2017)});
              
         }
         };
@@ -82,7 +87,7 @@ function barChart(district){
               .style('stroke-width','3px')
               .attr("d", valueline);
         
-          //Add the valueline2 path.
+          //Add the valueline2 path.  
           svg.append("path")
               .data([safetyIndex])
               .attr("class", "line")
@@ -90,6 +95,40 @@ function barChart(district){
               .style('stroke-width','3px')
               .style("fill","none")
               .attr("d", valueline2);
+        
+         //Add the valueline3 path.  
+        //   svg.append("path")
+        //       .data([highImpartCrime])
+        //       .attr("class", "line")
+        //       .style("stroke", "green")
+        //       .style('stroke-width','3px')
+        //       .style("fill","none")
+        //       .attr("d", valueline2);
+
+          svg.selectAll(".dot")
+              .data(safetyIndex.filter(function(d) { return d.value; }))
+              .enter().append("circle")
+              .attr("class", "dot")
+              .attr("cx", valueline2.x())
+              .attr("cy", valueline2.y())
+              .attr("r", 3.5);
+
+          svg.selectAll(".dot2")
+              .data(population.filter(function(d) { return d.value; }))
+              .enter().append("circle")
+              .attr("class", "dot2")
+              .attr("cx", valueline.x())
+              .attr("cy", valueline.y())
+              .attr("r", 3.5);
+        
+        //  svg.selectAll(".dot3")
+        //       .data(highImpartCrime.filter(function(d) { return d.value; }))
+        //       .enter().append("circle")
+        //       .attr("class", "dot3")
+        //       .attr("cx", valueline2.x())
+        //       .attr("cy", valueline2.y())
+        //       .attr("r", 3.5);
+    
         
           // Add the X Axis
           svg.append("g")
@@ -110,7 +149,7 @@ function barChart(district){
       });
     }
 
-barChart("Kinkerbuurt");
+barChart("Sloterdijk");
 
 
 
