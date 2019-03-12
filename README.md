@@ -15,4 +15,4 @@
 
 ### Living Condition Score:
 - higher score means better living condition
-- LivingConditionScore = PopulationStabilityScore - 0.5 * SafetyScore
+- LivingConditionScore = PopulationStabilityScore - 0.5 * SafetyScore +100
