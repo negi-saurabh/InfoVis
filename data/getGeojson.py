@@ -69,7 +69,7 @@ result = pd.merge(safeDf_merge, statsDf)
 for year in years:
     result['living_condition_score_' + year] = result['population_stability_score_' + year] - 0.5*result['safety_index_' + year] + 100
 
-#注意：在访问 DataFrame 中的单个元素时，就像上个示例一样，必须始终提供标签，并且列标签在前，格式为 dataframe[column][row]，如果先提供行标签，将出错。
+#single data: ataframe[column][row]
 # Maxium LivingConditionScore is 120
 for year in years:
     for col in range(0,81):
