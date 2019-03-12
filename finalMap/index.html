@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name='viewport' content='initial-scale=1,maximum-scale=1,user-scalable=no' />
+    <title>IV Group11</title>
+    <link href='https://api.tiles.mapbox.com/mapbox-gl-js/v0.52.0/mapbox-gl.css' rel='stylesheet' />
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+    crossorigin="anonymous">
+    <script src='https://api.tiles.mapbox.com/mapbox-gl-js/v0.52.0/mapbox-gl.js'></script>
+    <script src="d3.js"></script>
+    <script src="jquery-3.3.1.min.js" charset="utf-8"></script>
+    <link rel="stylesheet" type="text/css" href="mapstyle.css">
+    <!-- import d3, mapbox, jquery, bootstrap, css -->
+</head>
+
+<body>
+
+    <div align="center">
+        <h2>Amsterdam Living Condition Visualization <span class="badge badge-secondary">IV Team11</span></h2>
+        <p>
+            <h4>Year: <span class="badge badge-secondary" id="yearFlag">2017</span></h4>
+        </p>
+        <button type="button" class="btn btn-outline-success" id="down">Show previous year</button>
+        <button type="button" class="btn btn-outline-success" id="up">Show next year</button>
+    </div>
+
+    <div id="wrapper">
+        <div id="map"></div>
+    </div>
+
+    <div id="divTop">
+        <div id="otherDiv" class="otherDivClose" style="display:none;border:1px solid red">Show subgraph there <span id="subgraphFlag">Empty</span></div>
+    </div> 
+    <!-- test div control other div -->
+
+    <footer>
+        <div id="foot" class="container" align="center">
+            <p><b>Group 11</b></p>
+        </div>
+    </footer>
+
+    <script type="text/javascript" src="map.js"></script>
+
+</body>
