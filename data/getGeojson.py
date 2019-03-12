@@ -69,6 +69,13 @@ result = pd.merge(safeDf_merge, statsDf)
 for year in years:
     result['living_condition_score_' + year] = result['population_stability_score_' + year] - 0.5*result['safety_index_' + year] + 100
 
+#注意：在访问 DataFrame 中的单个元素时，就像上个示例一样，必须始终提供标签，并且列标签在前，格式为 dataframe[column][row]，如果先提供行标签，将出错。
+# Maxium LivingConditionScore is 120
+for year in years:
+    for col in range(0,81):
+        if result['living_condition_score_' + year][col] > 120:
+            result['living_condition_score_' + year][col] = 120
+
 # delete Zuidas and Elzenhagen, because they miss some values
 # result.dropna(axis=0, how='any', inplace=True)
 # get zero to missing data
@@ -81,8 +88,7 @@ for year in years:
 result.to_csv('score.csv')
 
 
-result['polygon_of_district_1_in_area'] = result['polygon_of_district_1_in_area'].apply(
-    wkt.loads)
+result['polygon_of_district_1_in_area'] = result['polygon_of_district_1_in_area'].apply(wkt.loads)
 safe_geo = gpd.GeoDataFrame(result, crs={'init': 'epsg:4326'})
 safe_geo = safe_geo.set_geometry('polygon_of_district_1_in_area')
 safe_geo.to_file('map.geojson', driver="GeoJSON")

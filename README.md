@@ -16,3 +16,5 @@
 ### Living Condition Score:
 - higher score means better living condition
 - LivingConditionScore = PopulationStabilityScore - 0.5 * SafetyScore +100
+- Maxium LivingConditionScore is 120
+- Missing data is set to 0
