@@ -27,3 +27,7 @@ svg {
     left: 0;
     background-color: #f0f0f0;
 }
+
+.container {
+    line-height: 70%
+}

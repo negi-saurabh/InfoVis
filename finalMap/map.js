@@ -1,6 +1,6 @@
 var year=2017;// default year
 
-d3.json("map.geojson").then(mapDraw);//import mapbox
+d3.json("../data/map.geojson").then(mapDraw);//import mapbox
     
     function mapDraw(geojson){    
 
