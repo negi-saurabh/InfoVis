@@ -97,18 +97,19 @@
 
       var values=[11,2,97,97,100,56];
   function init() {
-
+	debugger
     //Create the random data
-    for (var i = 0; i < 6; i++) {
+    /*for (var i = 0; i < 6; i++) {
       var my_object = {};
       my_object.key = i;
       my_object.country = causes2014[i];
       my_object.value = values[i];
       data.push(my_object);
-    }//for i 
+    }//for i */
     //data.sort(function(a,b) { return b.value - a.value; });
-	/*d3.csv("ams_stats_districts.csv",function(d){
-      if(d.district=="Houthavens"){
+	d3.csv("ams_stats_districts.csv",function(d){
+	for(var y=0;y<d.length;y++){
+   	if(d[y].district=="Houthavens"){
         var year=2014;
         if(parseInt(year)==2014)
         {
@@ -116,7 +117,18 @@
                 var my_object = {};
 				my_object.key = i;
 				my_object.country = causes2014[i];
-				my_object.value = d.causes2014[i];
+				if(i==0)
+				 {my_object.value = d[y].births_2014;}
+				else if(i==1)
+                 {my_object.value = d[y].deaths_2014;}
+				else if(i==2)
+                 {my_object.value = d[y].people_moving_to_2014;}
+				else if(i==3)
+                 {my_object.value = d[y].people_moving_away_2014;}
+                else if(i==4)
+                 {my_object.value = d[y].people_moving_away_2014_relocations_within_ams;}
+                else if(i==5)
+                 {my_object.value = d[y].people_moving_to_2014_relocations_within_ams;}				 
 				data.push(my_object);
                } 
               
@@ -127,7 +139,18 @@
                 var my_object = {};
 				my_object.key = i;
 				my_object.country = causes2015[i];
-				my_object.value = d.causes2015[i];
+				if(i==0)
+				 {my_object.value = d[y].births_2015;}
+				else if(i==1)
+                 {my_object.value = d[y].deaths_2015;}
+				else if(i==2)
+                 {my_object.value = d[y].people_moving_to_2015;}
+				else if(i==3)
+                 {my_object.value = d[y].people_moving_away_2015;}
+                else if(i==4)
+                 {my_object.value = d[y].people_moving_away_2015_relocations_within_ams;}
+                else if(i==5)
+                 {my_object.value = d[y].people_moving_to_2015_relocations_within_ams;}				 
 				data.push(my_object);
                } 
         }
@@ -137,7 +160,18 @@
                 var my_object = {};
 				my_object.key = i;
 				my_object.country = causes2016[i];
-				my_object.value = d.causes2016[i];
+				if(i==0)
+				 {my_object.value = d[y].births_2016;}
+				else if(i==1)
+                 {my_object.value = d[y].deaths_2016;}
+				else if(i==2)
+                 {my_object.value = d[y].people_moving_to_2016;}
+				else if(i==3)
+                 {my_object.value = d[y].people_moving_away_2016;}
+                else if(i==4)
+                 {my_object.value = d[y].people_moving_away_2016_relocations_within_ams;}
+                else if(i==5)
+                 {my_object.value = d[y].people_moving_to_2016_relocations_within_ams;}				 
 				data.push(my_object);
                } 
         }
@@ -147,15 +181,26 @@
                 var my_object = {};
 				my_object.key = i;
 				my_object.country = causes2017[i];
-				my_object.value = d.causes2017[i];
+				if(i==0)
+				 {my_object.value = d[y].births_2017;}
+				else if(i==1)
+                 {my_object.value = d[y].deaths_2017;}
+				else if(i==2)
+                 {my_object.value = d[y].people_moving_to_2017;}
+				else if(i==3)
+                 {my_object.value = d[y].people_moving_away_2017;}
+                else if(i==4)
+                 {my_object.value = d[y].people_moving_away_2017_relocations_within_ams;}
+                else if(i==5)
+                 {my_object.value = d[y].people_moving_to_2017_relocations_within_ams;}				 
 				data.push(my_object);
                } 
         }
 		else
 		{window.alert("Fail");}
       }
-  });*/
-   
+	  }
+  });
 
     /////////////////////////////////////////////////////////////
     ///////////////// Set-up SVG and wrappers ///////////////////
