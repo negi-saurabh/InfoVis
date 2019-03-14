@@ -108,99 +108,79 @@
     }//for i */
     //data.sort(function(a,b) { return b.value - a.value; });
 	d3.csv("ams_stats_districts.csv",function(d){
-	for(var y=0;y<d.length;y++){
-   	if(d[y].district=="Houthavens"){
         var year=2014;
         if(parseInt(year)==2014)
         {
-			  for(var i = 0; i < 6; i++){
-                var my_object = {};
-				my_object.key = i;
-				my_object.country = causes2014[i];
-				if(i==0)
-				 {my_object.value = d[y].births_2014;}
-				else if(i==1)
-                 {my_object.value = d[y].deaths_2014;}
-				else if(i==2)
-                 {my_object.value = d[y].people_moving_to_2014;}
-				else if(i==3)
-                 {my_object.value = d[y].people_moving_away_2014;}
-                else if(i==4)
-                 {my_object.value = d[y].people_moving_away_2014_relocations_within_ams;}
-                else if(i==5)
-                 {my_object.value = d[y].people_moving_to_2014_relocations_within_ams;}				 
-				data.push(my_object);
-               } 
+			  return {
+                "births" : d.births_2014,
+                "deaths": d.deaths_2014,
+                "people_moving_to": d.people_moving_to_2014,
+                "people_moving_away": d.people_moving_away_2014,
+                "people_moving_away_relocations_within_ams": d.people_moving_away_2014_relocations_within_ams,
+                "people_moving_to_relocations_within_ams":d.people_moving_to_2014_relocations_within_ams
+          }
               
         }
         else if(parseInt(year)==2015)
         {
-          for(var i = 0; i < 6; i++){
-                var my_object = {};
-				my_object.key = i;
-				my_object.country = causes2015[i];
-				if(i==0)
-				 {my_object.value = d[y].births_2015;}
-				else if(i==1)
-                 {my_object.value = d[y].deaths_2015;}
-				else if(i==2)
-                 {my_object.value = d[y].people_moving_to_2015;}
-				else if(i==3)
-                 {my_object.value = d[y].people_moving_away_2015;}
-                else if(i==4)
-                 {my_object.value = d[y].people_moving_away_2015_relocations_within_ams;}
-                else if(i==5)
-                 {my_object.value = d[y].people_moving_to_2015_relocations_within_ams;}				 
-				data.push(my_object);
-               } 
+          return {
+                "births" : d.births_2015,
+                "deaths": d.deaths_2015,
+                "people_moving_to": d.people_moving_to_2015,
+                "people_moving_away": d.people_moving_away_2015,
+                "people_moving_away_relocations_within_ams": d.people_moving_away_2015_relocations_within_ams,
+                "people_moving_to_relocations_within_ams":d.people_moving_to_2015_relocations_within_ams
+          }
         }
         else if(parseInt(year)==2016)
         {
-          for(var i = 0; i < 6; i++){
-                var my_object = {};
-				my_object.key = i;
-				my_object.country = causes2016[i];
-				if(i==0)
-				 {my_object.value = d[y].births_2016;}
-				else if(i==1)
-                 {my_object.value = d[y].deaths_2016;}
-				else if(i==2)
-                 {my_object.value = d[y].people_moving_to_2016;}
-				else if(i==3)
-                 {my_object.value = d[y].people_moving_away_2016;}
-                else if(i==4)
-                 {my_object.value = d[y].people_moving_away_2016_relocations_within_ams;}
-                else if(i==5)
-                 {my_object.value = d[y].people_moving_to_2016_relocations_within_ams;}				 
-				data.push(my_object);
-               } 
+          return {
+                "births" : d.births_2016,
+                "deaths": d.deaths_2016,
+                "people_moving_to": d.people_moving_to_2016,
+                "people_moving_away": d.people_moving_away_2016,
+                "people_moving_away_relocations_within_ams": d.people_moving_away_2016_relocations_within_ams,
+                "people_moving_to_relocations_within_ams":d.people_moving_to_2016_relocations_within_ams
+          } 
         }
         else if(parseInt(year)==2017)
         {
-          for(var i = 0; i < 6; i++){
+          return {
+                "births" : d.births_2017,
+                "deaths": d.deaths_2017,
+                "people_moving_to": d.people_moving_to_2017,
+                "people_moving_away": d.people_moving_away_2017,
+                "people_moving_away_relocations_within_ams": d.people_moving_away_2017_relocations_within_ams,
+                "people_moving_to_relocations_within_ams":d.people_moving_to_2017_relocations_within_ams
+          }
+        }
+      
+	 
+  }).then(function(csv_data){
+      debugger
+	  for(var y=0;y<d.length;y++){
+   	   if(csv_data[y].district=="Houthavens"){
+         for(var i = 0; i < 6; i++){
                 var my_object = {};
 				my_object.key = i;
 				my_object.country = causes2017[i];
 				if(i==0)
-				 {my_object.value = d[y].births_2017;}
+				 {my_object.value = csv_data[y].births;}
 				else if(i==1)
-                 {my_object.value = d[y].deaths_2017;}
+                 {my_object.value = csv_data[y].deaths;}
 				else if(i==2)
-                 {my_object.value = d[y].people_moving_to_2017;}
+                 {my_object.value = csv_data[y].people_moving_to;}
 				else if(i==3)
-                 {my_object.value = d[y].people_moving_away_2017;}
+                 {my_object.value = csv_data[y].people_moving_away;}
                 else if(i==4)
-                 {my_object.value = d[y].people_moving_away_2017_relocations_within_ams;}
+                 {my_object.value = csv_data[y].people_moving_away_relocations_within_ams;}
                 else if(i==5)
-                 {my_object.value = d[y].people_moving_to_2017_relocations_within_ams;}				 
+                 {my_object.value = csv_data[y].people_moving_to_relocations_within_ams;}				 
 				data.push(my_object);
-               } 
-        }
-		else
-		{window.alert("Fail");}
-      }
-	  }
-  });
+               }
+          }
+       }		  
+     });
 
     /////////////////////////////////////////////////////////////
     ///////////////// Set-up SVG and wrappers ///////////////////
