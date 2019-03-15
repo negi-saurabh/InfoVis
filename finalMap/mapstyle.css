@@ -1,0 +1,39 @@
+/* html, body, #wrapper {
+    width: 100%;
+    height: 100%;
+	padding: 0px;
+	margin: 0px;
+} */
+#map {
+    position: relative;
+    width: 1000px;
+    height: 600px;
+    margin: auto auto;
+}
+
+svg {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+}
+
+.hidden {
+    display: none;
+}
+
+#tooltip {
+    position: absolute;
+    top: 0;
+    left: 0;
+    background-color: #f0f0f0;
+}
+
+.container {
+    line-height: 70%
+}
+
+.NB {
+    width:1000px; 
+    position: relative; 
+    margin: auto auto
+}
