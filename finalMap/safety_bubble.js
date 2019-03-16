@@ -1,6 +1,21 @@
+var flagtest2=0;
+var updatePic2 = function () {
+  flagtest2=flagtest2+1;
+  // console.log(flagtest2);
+  return flagtest2;
+}
+
 function safetyChart(district, year){
-  console.log(district);
-  console.log(year);
+  ffff2=updatePic2();
+  // console.log(ffff2);
+  if(ffff2>1){ 
+    var  f = document.getElementById('bubble-chart')
+    var child = f.childNodes;
+    // console.log(child);
+    f.removeChild(child[0]);
+  };
+  // console.log(district);
+  // console.log(year);
   d3.csv("../data/ams_safety_index_districts.csv",function(d){
       if(d.district_1_in_area==district || d.district_2_in_area==district || d.district_3_in_area==district){
 
@@ -87,16 +102,16 @@ function safetyChart(district, year){
   })
     .then(function(csv_data){
       //debugger
-      console.log(csv_data);
+      // console.log(csv_data);
 
       var out1 = Object.keys(csv_data[0]).map(function(data){
         return [data,csv_data[0][data]];
       });
-      console.log(out1);
+      // console.log(out1);
 
       //convert numerical values from strings to numbers
       var out = out1.map(function(d){ d.key = d[0]; d.value = d[1]; return d; });
-      console.log(out);
+      // console.log(out);
       // set the dimensions and margins of the graph
       var margin = {top: 10, right: 30, bottom: 30, left: 60},
       width = 384 - margin.left - margin.right,

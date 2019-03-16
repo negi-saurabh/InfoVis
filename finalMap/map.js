@@ -15,13 +15,19 @@ d3.json("../data/map.geojson").then(mapDraw);//import mapbox
 
     map.addControl(new mapboxgl.NavigationControl());
 
+    var flagtest=0;
+
     var updatePic = function () {
-        d3.selectAll('canvas')
-            .remove()
+        //d3.select("#divPanoramic").remove();
+        // d3.select('canvas')
+        //     .remove()
+        flagtest=flagtest+1;
+        console.log(flagtest);
+        return flagtest;
     }
 
      async function panoramic (districtName) {
-      updatePic();
+      ffff=updatePic();
       var manualControl = false;
       var longitude = 0;
       var latitude = 0;
@@ -54,12 +60,20 @@ d3.json("../data/map.geojson").then(mapDraw);//import mapbox
       // setting up the renderer
       renderer = new THREE.WebGLRenderer();
       renderer.name = ('picRenderer')
-      console.log(renderer.name);
+      //console.log(renderer.name);
       renderer.setSize(386, 224);
-      document.getElementById('divPanoramic').appendChild(renderer.domElement);
+      
+      if(ffff>1){
+        var  f = document.getElementById('divPanoramic')
+        var child = f.childNodes;
+        //console.log(child)
+        f.removeChild(child[0]);
+      }
+      document.getElementById('divPanoramic').appendChild(renderer.domElement);      
 
       // creating a new scene
       var scene = new THREE.Scene();
+      scene.name = ('picScene')
       //scene.name = panoramicScene;
 
       // adding a camera

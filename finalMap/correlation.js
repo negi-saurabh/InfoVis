@@ -1,11 +1,26 @@
+var flagtest1=0;
+var updatePic1 = function () {
+  flagtest1=flagtest1+1;
+  // console.log(flagtest1);
+  return flagtest1;
+}
+
 function correlationChart(district){
+  ffff1=updatePic1();
+  // console.log(ffff1);
+  if(ffff1>1){ 
+    var  f = document.getElementById('divCorrelation')
+    var child = f.childNodes;
+    // console.log(child);
+    f.removeChild(child[0]);
+  };
   Promise.all([
         d3.csv("../data/ams_stats_districts.csv"),
         d3.csv("../data/ams_safety_index_districts.csv"),
       ]).then(function(files) {
-        debugger
-        console.log(files[0]);
-        console.log(files[1]);
+        // debugger
+        // console.log(files[0]);
+        // console.log(files[1]);
         // files[0] will contain ams_stats_districts.csv
         // files[1] will contain ams_safety_index_districts.csv
         var population = [];
@@ -36,8 +51,8 @@ function correlationChart(district){
         }
         };
 
-        console.log(population);
-        console.log(safetyIndex);
+        // console.log(population);
+        // console.log(safetyIndex);
 
         var margin = {top: 10, right: 30, bottom: 30, left: 60},
             width = 384 - margin.left - margin.right,
