@@ -8,6 +8,7 @@ var updatePic1 = function () {
 function correlationChart(district){
   ffff1=updatePic1();
   // console.log(ffff1);
+  debugger
   if(ffff1>1){ 
     var  f = document.getElementById('divCorrelation')
     var child = f.childNodes;
@@ -154,12 +155,14 @@ function correlationChart(district){
           // Add the Y0 Axis
           svg.append("g")
               .attr("class", "axisSteelBlue")
+              .style("fill", "steelblue")
               .call(d3.axisLeft(y0));
 
           // Add the Y1 Axis
           svg.append("g")
               .attr("class", "axisRed")
               .attr("transform", "translate( " + width + ", 0 )")
+              .style("fill", "red")		
               .call(d3.axisRight(y1));
 
       });

@@ -57,4 +57,5 @@ canvas {
     position: relative;
     margin: auto auto;
 }
+body { font: 12px Arial;}
 /* #container{width:100%;} */

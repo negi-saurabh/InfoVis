@@ -8,17 +8,23 @@ var updatePic2 = function () {
 function safetyChart(district, year){
   ffff2=updatePic2();
   // console.log(ffff2);
+  
   if(ffff2>1){ 
     var  f = document.getElementById('bubble-chart')
     var child = f.childNodes;
     // console.log(child);
-    f.removeChild(child[0]);
+    var i;
+    var childs  = child.length;
+    for (i = 0; i < childs; i++) { 
+      f.removeChild(child[0]);
+    }
+    
   };
   // console.log(district);
   // console.log(year);
   d3.csv("../data/ams_safety_index_districts.csv",function(d){
       if(d.district_1_in_area==district || d.district_2_in_area==district || d.district_3_in_area==district){
-
+        
         // var x = new Array();
         // x[10] = new Array();
         if(parseInt(year)==2014)
@@ -113,10 +119,10 @@ function safetyChart(district, year){
       var out = out1.map(function(d){ d.key = d[0]; d.value = d[1]; return d; });
       // console.log(out);
       // set the dimensions and margins of the graph
-      var margin = {top: 10, right: 30, bottom: 30, left: 60},
-      width = 384 - margin.left - margin.right,
+      var margin = {top: 10, right: 10, bottom: 50, left: 30},
+      width = 380 - margin.left - margin.right,
       format = d3.format(",d"),
-      height = 216 - margin.top - margin.bottom;
+      height = 250 - margin.top - margin.bottom;
 
 
       // append the svg object to the body of the page
@@ -128,19 +134,16 @@ function safetyChart(district, year){
         .attr("transform",
               "translate(" + margin.left + "," + margin.top + ")");
 
-      var div = d3.select("#bubble-chart").append("div")
-        .attr("class", "tooltip")
-        .style("opacity", 0);
 
 
-      svg.append("text")
-        .attr("x", 80)
-        .attr("y", 20 )
-        .attr("dy", ".5em" )
-        .attr("text-anchor", "start")
-        .style("font-size", "15px")
-        .style("font-weight", "bold")
-        .text("Saferty Index parameters in "+district +" for " +year)
+      // svg.append("text")
+      //   .attr("x", 80)
+      //   .attr("y", 20 )
+      //   .attr("dy", ".5em" )
+      //   .attr("text-anchor", "start")
+      //   .style("font-size", "15px")
+      //   .style("font-weight", "bold")
+      //   .text("Saferty Index parameters in "+district +" for " +year)
 
       var tooltip = d3.select("#bubble-chart").append("div")
         .style("position", "absolute")
@@ -156,16 +159,14 @@ function safetyChart(district, year){
       var pack = d3.pack()
           // .sum(function(d) { return d.value; })
           // .sort(function(a, b) { return b.value - a.value })
-          .size([200, 300])
+          .size([200, 200])
           .padding(1.5);
 
 
 
       var color = d3.scaleOrdinal()
           .domain(out.map(function(d){ return d.key;}))
-          .range(['#fbb4ae','#596671','#ccebc5','#decbe4','#fed9a6',
-          '#ffe9a8','#b9bfe3','#fddaec','#cccccc','#ccbccc','#515e4e']);
-
+          .range(['#FF3333', '#FF9933', '#FFFF33','#99FF33', '#33FF33', '#33FF99','#33FFFF','#33CCFF','#3399FF','#3333FF','#9933FF']);
       var root = d3.hierarchy({children: out})
               .sum(function(d) { return d.value; })
 
@@ -217,10 +218,10 @@ function safetyChart(district, year){
         svg.append("text")
           .attr("class", "x label")
           .attr("text-anchor", "end")
-          .attr("x", width)
-          .attr("y", height - 6)
-          .style("font", "16px times")
-          .text("Safety parameters normalized with 100");
+          .attr("x", width-10)
+          .attr("y", height - 8)
+          .style("font", "12px times")
+          .text("Saferty Index parameters in "+district +" for " +year)
 
         svg.append("text")
           .attr("class", "y label")
@@ -228,9 +229,8 @@ function safetyChart(district, year){
           .attr("y", 6)
           .attr("dy", ".75em")
           .attr("transform", "rotate(-90)")
-          .style("font", "16px times")
-          .text("District:  "+district );
-
+          .style("font", "16px times");
+          
       node.append("text")
           .attr("dy", ".2em")
           .style("text-anchor", "middle")
@@ -240,9 +240,9 @@ function safetyChart(district, year){
       svg.append("g")
           .attr("class", "legendOrdinal")
           .attr("transform", "translate(600,40)");
-
+        debugger
       var legendOrdinal = d3.legendColor()
-          .shape("path", d3.symbol().type(d3.symbolSquare).size(150)())
+          .shape("path", d3.symbol().type(d3.symbolSquare).size(100)())
           .shapePadding(10)
           .scale(color);
 
