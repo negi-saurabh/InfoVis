@@ -145,16 +145,10 @@ function safetyChart(district, year){
       //   .style("font-weight", "bold")
       //   .text("Saferty Index parameters in "+district +" for " +year)
 
-      var tooltip = d3.select("#bubble-chart").append("div")
-        .style("position", "absolute")
-        .style("z-index", "10")
-        .style("visibility", "hidden")
-        .style("color", "white")
-        .style("padding", "8px")
-        .style("background-color", "rgba(0, 0, 0, 0.75)")
-        .style("border-radius", "6px")
-        .style("font", "12px sans-serif")
-        .text("tooltip");
+      var tooltip = d3.select("body")
+                        .append("div")
+                        .attr("id","tooltip")
+                        .style("opacity",0);
 
       var pack = d3.pack()
           // .sum(function(d) { return d.value; })
@@ -180,18 +174,27 @@ function safetyChart(district, year){
           .attr("id", function(d) { return d.id; })
           .attr("r", function(d) { return d.r; })
           .style("fill", function(d) { return color(d.data.key); })
-          .on("mouseover", function(d) {
-                tooltip.text(d.data.key + ": " + format(d.value));
-                tooltip.style("visibility", "visible");
-                d3.select(this).style("stroke", "black");
-            })
+          .style('cursor', 'pointer')
+          .on('mouseover', function(d){//mouse move on
+                tooltip.style("opacity", 1)
+                .html(d.data.key + ": " + format(d.value))
+                .style("left", (d3.event.pageX + 10) + "px")
+                .style("top", (d3.event.pageY - 40) + "px");
+                var self = d3.select(this);
+                self.style('fill', 'pink');
+          })
+          .on('mouseout', function(d, i){//mouse move out
+                tooltip.style("opacity", 0);
+                var self = d3.select(this);
+                self.transition()
+                    .duration(300)
+                    .style('fill', function(d, i) {
+                        return color(d.data.key);
+                    })
+          })
             .on("mousemove", function() {
                 return tooltip.style("top", (d3.event.pageY-10)+"px").style("left",(d3.event.pageX+10)+"px");
-            })
-            .on("mouseout", function() {
-              d3.select(this).style("stroke", "none");
-              return tooltip.style("visibility", "hidden");
-        });;
+            });
 
         var Xdatas = out.map(function (d) {
           return d.key;
@@ -237,13 +240,36 @@ function safetyChart(district, year){
           .style("pointer-events", "none")
           .text(function(d) {return d.data.value});
 
+      // svg.selectAll('rect.legend')//add color scale
+      //       .data([out])
+      //       .enter()
+      //       .append('rect')
+      //       .attr('class', 'legend')
+      //       .attr('x', 45)
+      //       .attr('y', function(d, i) { return 180 - 15 * i; })
+      //       .attr('width', 20)
+      //       .attr('height', 15)
+      //       .attr('fill', function(d) { return color(d.key); });
+
+      // svg.selectAll('text.legend')//add text for color scale
+      //       .data([out])
+      //       .enter()
+      //       .append('text')
+      //       .attr('x', 40)
+      //       .attr('y', function(d, i) { return 180 - 15 * i + 12; })
+      //       .attr('font-size', 9)
+      //       .attr('text-anchor', 'end')
+      //       .text(function(d) { return d.key ; });
+
       svg.append("g")
           .attr("class", "legendOrdinal")
-          .attr("transform", "translate(600,40)");
-        debugger
+          .attr("transform",
+          "translate(" + 220 + "," + margin.top + ")");
+      
+      debugger
       var legendOrdinal = d3.legendColor()
           .shape("path", d3.symbol().type(d3.symbolSquare).size(100)())
-          .shapePadding(10)
+          .shapePadding(1)
           .scale(color);
 
       svg.select(".legendOrdinal")

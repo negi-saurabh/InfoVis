@@ -58,4 +58,33 @@ canvas {
     margin: auto auto;
 }
 body { font: 12px Arial;}
+
+     
+div.tooltip {	
+    position: absolute;			
+    text-align: center;			
+    width: 60px;					
+    height: 45px;					
+    padding: 2px;				
+    font: 12px sans-serif;		
+    background: lightsteelblue;	
+    border: 0px;		
+    border-radius: 8px;			
+    pointer-events: none;			
+}
+
+#bubble-chart .legend {
+	position: absolute;
+	bottom: 40px;
+	right: 0;
+	left: auto;
+	width: 170px;
+	height: 110px;
+  }
+
+  #legend {
+	position: absolute;
+	bottom: 0;
+	right: 0;
+  }
 /* #container{width:100%;} */

@@ -8,7 +8,7 @@ var updatePic1 = function () {
 function correlationChart(district){
   ffff1=updatePic1();
   // console.log(ffff1);
-  debugger
+  
   if(ffff1>1){ 
     var  f = document.getElementById('divCorrelation')
     var child = f.childNodes;
@@ -27,6 +27,7 @@ function correlationChart(district){
         var population = [];
         var safetyIndex = [];
         var highImpartCrime = [];
+        var avoidance = [];
         for (var i=0; i < files[0].length; i++) {
           if(files[0][i].district==district){
               population.push({"key": 2014, "value": parseInt(files[0][i].population_2014)});
@@ -47,7 +48,12 @@ function correlationChart(district){
               highImpartCrime.push({"key": 2014, "value": parseInt(files[1][i].high_impact_crime_2014)});
               highImpartCrime.push({"key": 2015, "value": parseInt(files[1][i].high_impact_crime_2015)});
               highImpartCrime.push({"key": 2016, "value": parseInt(files[1][i].high_impact_crime_2016)});
-              highImpartCrime.push({"key": 2017, "value": parseInt(files[1][i].high_impact_crime_2017)});
+              highImpartCrime.push({"key": 2017, "value": parseInt(files[1][i].high_impact_crime_2017)}); 
+
+              avoidance.push({"key": 2014, "value": parseInt(files[1][i].avoidance_2014)});
+              avoidance.push({"key": 2015, "value": parseInt(files[1][i].avoidance_2015)});
+              avoidance.push({"key": 2016, "value": parseInt(files[1][i].avoidance_2016)});
+              avoidance.push({"key": 2017, "value": parseInt(files[1][i].avoidance_2017)});
 
         }
         };
@@ -113,14 +119,23 @@ function correlationChart(district){
               .style("fill","none")
               .attr("d", valueline2);
 
-         //Add the valueline3 path.
-        //   svg.append("path")
-        //       .data([highImpartCrime])
-        //       .attr("class", "line")
-        //       .style("stroke", "green")
-        //       .style('stroke-width','3px')
-        //       .style("fill","none")
-        //       .attr("d", valueline2);
+         //add the valueline3 path.
+          svg.append("path")
+              .data([highImpartCrime])
+              .attr("class", "line")
+              .style("stroke", "green")
+              .style('stroke-width','3px')
+              .style("fill","none")
+              .attr("d", valueline2); 
+          
+          //add the valueline3 path.
+          svg.append("path")
+              .data([avoidance])
+              .attr("class", "line")
+              .style("stroke", "yellow")
+              .style('stroke-width','3px')
+              .style("fill","none")
+              .attr("d", valueline2); 
 
           svg.selectAll(".dot")
               .data(safetyIndex.filter(function(d) { return d.value; }))
@@ -138,13 +153,21 @@ function correlationChart(district){
               .attr("cy", valueline.y())
               .attr("r", 3.5);
 
-        //  svg.selectAll(".dot3")
-        //       .data(highImpartCrime.filter(function(d) { return d.value; }))
-        //       .enter().append("circle")
-        //       .attr("class", "dot3")
-        //       .attr("cx", valueline2.x())
-        //       .attr("cy", valueline2.y())
-        //       .attr("r", 3.5);
+         svg.selectAll(".dot3")
+              .data(highImpartCrime.filter(function(d) { return d.value; }))
+              .enter().append("circle")
+              .attr("class", "dot3")
+              .attr("cx", valueline2.x())
+              .attr("cy", valueline2.y())
+              .attr("r", 3.5);
+
+         svg.selectAll(".dot4")
+              .data(avoidance.filter(function(d) { return d.value; }))
+              .enter().append("circle")
+              .attr("class", "dot4")
+              .attr("cx", valueline2.x())
+              .attr("cy", valueline2.y())
+              .attr("r", 3.5);
 
 
           // Add the X Axis
@@ -164,6 +187,25 @@ function correlationChart(district){
               .attr("transform", "translate( " + width + ", 0 )")
               .style("fill", "red")		
               .call(d3.axisRight(y1));
+
+         
+
+          var color = d3.scaleOrdinal().domain(['population','safety index','high impact crime','avoidance'])//color in different district, color scale
+              .range(['steelblue', 'red', 'green','yellow']);
+
+          svg.append("g")
+              .attr("class", "legendOrdinal")
+              .attr("transform",
+              "translate(" + 180 + "," + 130 + ")");
+          
+          debugger
+          var legendOrdinal = d3.legendColor()
+              .shape("path", d3.symbol().type(d3.symbolSquare).size(100)())
+              .shapePadding(1)
+              .scale(color);
+    
+          svg.select(".legendOrdinal")
+              .call(legendOrdinal);
 
       });
     }
