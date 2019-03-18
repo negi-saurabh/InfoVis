@@ -7,7 +7,7 @@
   <link href='https://fonts.googleapis.com/css?family=Open+Sans:300,400' rel='stylesheet' type='text/css'>
 
   <!-- <script src="d3.v3.js"></script> -->
-  <script src="//d3js.org/d3.v3.min.js"></script>
+  <script src="d3.js"></script>
 
   <style>
     body {
@@ -109,6 +109,7 @@
     //data.sort(function(a,b) { return b.value - a.value; });
 	d3.csv("ams_stats_districts.csv",function(d){
         var year=2014;
+      
         if(parseInt(year)==2014)
         {
 			  return {
