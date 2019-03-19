@@ -245,6 +245,8 @@ d3.json("../data/map.geojson").then(mapDraw);//import mapbox
                 // var otherDiv=document.getElementById('otherDiv');//get the objcet to be shown
                 // otherDiv.style.display="block";//show
                 // document.getElementById("subgraphFlag").innerHTML=a;
+                var aa = $("#"+"divSubgraph").offset().top;
+                $("html,body").animate({scrollTop:aa}, 'slow');
                 var divPanoramic = document.getElementById('divPanoramic');
                 divPanoramic.style.display="inline-block";
                 var divCorrelation = document.getElementById('divCorrelation');
