@@ -34,7 +34,7 @@ function correlationChart(district){
               population.push({"key": 2015, "value": parseInt(files[0][i].population_2015)});
               population.push({"key": 2016, "value": parseInt(files[0][i].population_2016)});
               population.push({"key": 2017, "value": parseInt(files[0][i].population_2017)});
-              population.push({"key": 2018, "value": parseInt(files[0][i].population_2018)});
+              //population.push({"key": 2018, "value": parseInt(files[0][i].population_2018)});
         }
         };
 

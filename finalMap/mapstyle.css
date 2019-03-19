@@ -7,7 +7,7 @@
 #map {
     position: relative;
     width: 1000px;
-    height: 600px;
+    height: 800px;
     margin: auto auto;
 }
 
@@ -40,7 +40,8 @@ canvas {
 .NB {
     width:1000px;
     position: relative;
-    margin: auto auto
+    margin: auto auto;
+    font: 14px Arial
 }
 
 #bubble-chart{

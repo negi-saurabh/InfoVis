@@ -40,7 +40,7 @@ function safetyChart(district, year){
                 "crime index": d.crime_index_2014,
                 "decay": d.decay_2014,
                 "fear of crime": d.fear_of_crime_2014,
-                "feelings of insecurity": d.feelings_of_insecurity_2014,
+                "feeling of insecurity": d.feelings_of_insecurity_2014,
                 "high impact crime": d.high_impact_crime_2014,
                 "high volume crime": d.high_volume_crime_2014,
                 "nuisance": d.nuisance_2014,
@@ -57,7 +57,7 @@ function safetyChart(district, year){
                 "crime index": d.crime_index_2015,
                 "decay": d.decay_2015,
                 "fear of crime": d.fear_of_crime_2015,
-                "feelings of insecurity": d.feelings_of_insecurity_2015,
+                "feeling of insecurity": d.feelings_of_insecurity_2015,
                 "high impact crime": d.high_impact_crime_2015,
                 "high volume crime": d.high_volume_crime_2015,
                 "nuisance": d.nuisance_2015,
@@ -78,7 +78,7 @@ function safetyChart(district, year){
                 "crime index": d.crime_index_2016,
                 "decay": d.decay_2016,
                 "fear of crime": d.fear_of_crime_2016,
-                "feelings of insecurity": d.feelings_of_insecurity_2016,
+                "feeling of insecurity": d.feelings_of_insecurity_2016,
                 "high impact crime": d.high_impact_crime_2016,
                 "high volume crime": d.high_volume_crime_2016,
                 "nuisance": d.nuisance_2016,
@@ -95,7 +95,7 @@ function safetyChart(district, year){
                 "crime index": d.crime_index_2017,
                 "decay": d.decay_2017,
                 "fear of crime": d.fear_of_crime_2017,
-                "feelings of insecurity": d.feelings_of_insecurity_2017,
+                "feeling of insecurity": d.feelings_of_insecurity_2017,
                 "high impact crime": d.high_impact_crime_2017,
                 "high volume crime": d.high_volume_crime_2017,
                 "nuisance": d.nuisance_2017,
@@ -264,7 +264,7 @@ function safetyChart(district, year){
       svg.append("g")
           .attr("class", "legendOrdinal")
           .attr("transform",
-          "translate(" + 220 + "," + margin.top + ")");
+          "translate(" + 205 + "," + margin.top + ")");
       
       debugger
       var legendOrdinal = d3.legendColor()

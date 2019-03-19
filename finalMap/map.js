@@ -225,7 +225,7 @@ d3.json("../data/map.geojson").then(mapDraw);//import mapbox
                 .style("top", (d3.event.pageY - 40) + "px");
 
                 var self = d3.select(this);
-                self.style('fill', 'green');
+                self.style('fill', 'white');
             })
             .on('mouseout', function(d, i){//mouse move out
                 tooltip.style("opacity", 0);
