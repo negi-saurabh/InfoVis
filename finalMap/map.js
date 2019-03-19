@@ -10,7 +10,7 @@ d3.json("../data/map.geojson").then(mapDraw);//import mapbox
         container: 'map', // container id
         style: 'mapbox://styles/mapbox/streets-v8',
         center: [4.9, 52.366667],
-        zoom: 10.5,
+        zoom: 10.9,
     })
 
     map.addControl(new mapboxgl.NavigationControl());
@@ -36,7 +36,7 @@ d3.json("../data/map.geojson").then(mapDraw);//import mapbox
       var savedLongitude;
       var savedLatitude;
 
-      let picData = await d3.csv("../data/panoramic.csv");
+      let picData = await d3.csv("../data/filtered_panoramic.csv");
       let dataFind = {};
 
       picData.forEach(function (urlRow) {
@@ -62,14 +62,14 @@ d3.json("../data/map.geojson").then(mapDraw);//import mapbox
       renderer.name = ('picRenderer')
       //console.log(renderer.name);
       renderer.setSize(386, 224);
-      
+
       if(ffff>1){
         var  f = document.getElementById('divPanoramic')
         var child = f.childNodes;
         //console.log(child)
         f.removeChild(child[0]);
       }
-      document.getElementById('divPanoramic').appendChild(renderer.domElement);      
+      document.getElementById('divPanoramic').appendChild(renderer.domElement);
 
       // creating a new scene
       var scene = new THREE.Scene();
@@ -204,7 +204,7 @@ d3.json("../data/map.geojson").then(mapDraw);//import mapbox
             .data(geojson.features)
             .enter()
             .append("path")
-            .attr("stroke", "red")
+            .attr("stroke", "orange")
             .attr("fill", function (d) {
                     return color(d.properties['living_condition_score_'+year]);
             })
