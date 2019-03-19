@@ -9,8 +9,8 @@ d3.json("../data/map.geojson").then(mapDraw);//import mapbox
     var map = new mapboxgl.Map({//set map default
         container: 'map', // container id
         style: 'mapbox://styles/mapbox/streets-v8',
-        center: [4.9, 52.366667],
-        zoom: 10.9,
+        center: [4.9, 52.356677],
+        zoom: 10.7,
     })
 
     map.addControl(new mapboxgl.NavigationControl());
