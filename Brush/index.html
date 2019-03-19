@@ -90,13 +90,8 @@
       mini_width,
       textScale;
 	  
-	  var causes2014 = ["births_2014", "deaths_2014", "people_moving_to_2014","people_moving_away_2014","people_moving_away_2014_relocations_within_ams","people_moving_to_2014_relocations_within_ams"];
-	  var causes2015 = ["births_2015", "deaths_2015", "people_moving_to_2015","people_moving_away_2015","people_moving_away_2015_relocations_within_ams","people_moving_to_2015_relocations_within_ams"];
-	  var causes2016 = ["births_2016", "deaths_2016", "people_moving_to_2016","people_moving_away_2016","people_moving_away_2016_relocations_within_ams","people_moving_to_2016_relocations_within_ams"];
-	  var causes2017 = ["births_2017", "deaths_2017", "people_moving_to_2017","people_moving_away_2017","people_moving_away_2017_relocations_within_ams","people_moving_to_2017_relocations_within_ams"]; 
-
-      var values=[11,2,97,97,100,56];
-  function init() {
+	  var causes = ["births", "deaths", "people_moving_to","people_moving_away","people_moving_away_relocations_within_ams","people_moving_to_relocations_within_ams"]; 
+  function init(dist,year) {
 	debugger
     //Create the random data
     /*for (var i = 0; i < 6; i++) {
@@ -108,11 +103,12 @@
     }//for i */
     //data.sort(function(a,b) { return b.value - a.value; });
 	d3.csv("ams_stats_districts.csv",function(d){
-        var year=2014;
+        //var year=2017;
       
         if(parseInt(year)==2014)
         {
 			  return {
+			    "district" : d.district,
                 "births" : d.births_2014,
                 "deaths": d.deaths_2014,
                 "people_moving_to": d.people_moving_to_2014,
@@ -125,6 +121,7 @@
         else if(parseInt(year)==2015)
         {
           return {
+		        "district" : d.district, 
                 "births" : d.births_2015,
                 "deaths": d.deaths_2015,
                 "people_moving_to": d.people_moving_to_2015,
@@ -136,6 +133,7 @@
         else if(parseInt(year)==2016)
         {
           return {
+		        "district" : d.district,
                 "births" : d.births_2016,
                 "deaths": d.deaths_2016,
                 "people_moving_to": d.people_moving_to_2016,
@@ -147,6 +145,7 @@
         else if(parseInt(year)==2017)
         {
           return {
+		        "district" : d.district,
                 "births" : d.births_2017,
                 "deaths": d.deaths_2017,
                 "people_moving_to": d.people_moving_to_2017,
@@ -159,12 +158,12 @@
 	 
   }).then(function(csv_data){
       debugger
-	  for(var y=0;y<d.length;y++){
-   	   if(csv_data[y].district=="Houthavens"){
+	  for(var y=0;y<csv_data.length;y++){
+   	   if(csv_data[y].district==dist){
          for(var i = 0; i < 6; i++){
                 var my_object = {};
 				my_object.key = i;
-				my_object.country = causes2017[i];
+				my_object.country = causes[i];
 				if(i==0)
 				 {my_object.value = csv_data[y].births;}
 				else if(i==1)
@@ -188,7 +187,7 @@
     /////////////////////////////////////////////////////////////
 
     //Added only for the mouse wheel
-    var zoomer = d3.behavior.zoom()
+    var zoomer = d3.zoom()
         .on("zoom", null);
 
     var main_margin = {top: 10, right: 10, bottom: 30, left: 100},
@@ -234,24 +233,23 @@
     ////////////////////// Initiate scales //////////////////////
     /////////////////////////////////////////////////////////////
 
-    main_xScale = d3.scale.linear().range([0, main_width]);
-    mini_xScale = d3.scale.linear().range([0, mini_width]);
+    main_xScale = d3.scaleLinear().range([0, main_width]);
+    mini_xScale = d3.scaleLinear().range([0, mini_width]);
 
-    main_yScale = d3.scale.ordinal().rangeBands([0, main_height], 0.4, 0);
-    mini_yScale = d3.scale.ordinal().rangeBands([0, mini_height], 0.4, 0);
+    main_yScale = d3.scaleBand().rangeRound([0, main_height], 0.4, 0);
+    mini_yScale = d3.scaleBand().rangeRound([0, mini_height], 0.4, 0);
 
     //Based on the idea from: http://stackoverflow.com/questions/21485339/d3-brushing-on-grouped-bar-chart
-    main_yZoom = d3.scale.linear()
+    main_yZoom = d3.scaleLinear()
         .range([0, main_height])
         .domain([0, main_height]);
 
     //Create x axis object
-    main_xAxis = d3.svg.axis()
+    main_xAxis = d3.axisBottom()
       .scale(main_xScale)
-      .orient("bottom")
       .ticks(4)
       //.tickSize(0)
-      .outerTickSize(0);
+      .tickSizeOuter(0);
 
     //Add group for the x axis
     d3.select(".mainGroupWrapper")
@@ -260,11 +258,10 @@
         .attr("transform", "translate(" + 0 + "," + (main_height + 5) + ")");
 
     //Create y axis object
-    main_yAxis = d3.svg.axis()
+    main_yAxis = d3.axisLeft()
       .scale(main_yScale)
-      .orient("left")
       .tickSize(0)
-      .outerTickSize(0);
+      .tickSizeOuter(0);
 
     //Add group for the y axis
     mainGroup.append("g")
@@ -288,7 +285,7 @@
     ///////////////////// Label axis scales /////////////////////
     /////////////////////////////////////////////////////////////
 
-    textScale = d3.scale.linear()
+    textScale = d3.scaleLinear()
       .domain([15,50])
       .range([12,6])
       .clamp(true);
@@ -300,8 +297,7 @@
     //What should the first extent of the brush become - a bit arbitrary this
     var brushExtent = Math.max( 1, 5 );
 
-    brush = d3.svg.brush()
-        .y(mini_yScale)
+    brush = d3.brushX()
         .extent([mini_yScale(data[0].country), mini_yScale(data[brushExtent].country)])
         .on("brush", brushmove)
         //.on("brushend", brushend);
@@ -541,7 +537,7 @@
       .attr("stop-color", function(d) { return d; });
   }//createGradient
 
-  init();
+  init("Houthavens",2017);
   </script>
 
 </body>
