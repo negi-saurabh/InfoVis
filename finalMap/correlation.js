@@ -26,8 +26,9 @@ function correlationChart(district){
         // files[1] will contain ams_safety_index_districts.csv
         var population = [];
         var safetyIndex = [];
-        var highImpartCrime = [];
-        var avoidance = [];
+        var crimeindex = [];
+        var nuisance = [];
+        var all =[];
         for (var i=0; i < files[0].length; i++) {
           if(files[0][i].district==district){
               population.push({"key": 2014, "value": parseInt(files[0][i].population_2014)});
@@ -35,6 +36,7 @@ function correlationChart(district){
               population.push({"key": 2016, "value": parseInt(files[0][i].population_2016)});
               population.push({"key": 2017, "value": parseInt(files[0][i].population_2017)});
               //population.push({"key": 2018, "value": parseInt(files[0][i].population_2018)});
+             
         }
         };
 
@@ -45,15 +47,18 @@ function correlationChart(district){
               safetyIndex.push({"key": 2016, "value": parseInt(files[1][i].safety_index_2016)});
               safetyIndex.push({"key": 2017, "value": parseInt(files[1][i].safety_index_2017)});
 
-              highImpartCrime.push({"key": 2014, "value": parseInt(files[1][i].high_impact_crime_2014)});
-              highImpartCrime.push({"key": 2015, "value": parseInt(files[1][i].high_impact_crime_2015)});
-              highImpartCrime.push({"key": 2016, "value": parseInt(files[1][i].high_impact_crime_2016)});
-              highImpartCrime.push({"key": 2017, "value": parseInt(files[1][i].high_impact_crime_2017)}); 
+              crimeindex.push({"key": 2014, "value": parseInt(files[1][i].crime_index_2014)});
+              crimeindex.push({"key": 2015, "value": parseInt(files[1][i].crime_index_2015)});
+              crimeindex.push({"key": 2016, "value": parseInt(files[1][i].crime_index_2016)});
+              crimeindex.push({"key": 2017, "value": parseInt(files[1][i].crime_index_2017)}); 
 
-              avoidance.push({"key": 2014, "value": parseInt(files[1][i].avoidance_2014)});
-              avoidance.push({"key": 2015, "value": parseInt(files[1][i].avoidance_2015)});
-              avoidance.push({"key": 2016, "value": parseInt(files[1][i].avoidance_2016)});
-              avoidance.push({"key": 2017, "value": parseInt(files[1][i].avoidance_2017)});
+              nuisance.push({"key": 2014, "value": parseInt(files[1][i].nuisance_2014)});
+              nuisance.push({"key": 2015, "value": parseInt(files[1][i].nuisance_2015)});
+              nuisance.push({"key": 2016, "value": parseInt(files[1][i].nuisance_2016)});
+              nuisance.push({"key": 2017, "value": parseInt(files[1][i].nuisance_2017)});
+              all=all.concat(safetyIndex);
+              all=all.concat(crimeindex);
+              all=all.concat(nuisance);
 
         }
         };
@@ -95,11 +100,11 @@ function correlationChart(district){
           var Xdatas = population.map(function (d) {
               return d.key;
             });
-
+            debugger
           // Scale the range of the data
           var x = d3.scalePoint().domain(Xdatas).rangeRound([0, width]).padding(0.1);
           y0.domain([0, d3.max(population, function(d) {return Math.max(d.value);})]);
-          y1.domain([0, d3.max(safetyIndex, function(d) {return Math.max(d.value); })]);
+          y1.domain([0, d3.max(all, function(d) {return Math.max(d.value); })]);
 
           // Add the valueline path.
           svg.append("path")
@@ -121,7 +126,7 @@ function correlationChart(district){
 
          //add the valueline3 path.
           svg.append("path")
-              .data([highImpartCrime])
+              .data([crimeindex])
               .attr("class", "line")
               .style("stroke", "green")
               .style('stroke-width','3px')
@@ -130,7 +135,7 @@ function correlationChart(district){
           
           //add the valueline3 path.
           svg.append("path")
-              .data([avoidance])
+              .data([nuisance])
               .attr("class", "line")
               .style("stroke", "yellow")
               .style('stroke-width','3px')
@@ -154,7 +159,7 @@ function correlationChart(district){
               .attr("r", 3.5);
 
          svg.selectAll(".dot3")
-              .data(highImpartCrime.filter(function(d) { return d.value; }))
+              .data(crimeindex.filter(function(d) { return d.value; }))
               .enter().append("circle")
               .attr("class", "dot3")
               .attr("cx", valueline2.x())
@@ -162,7 +167,7 @@ function correlationChart(district){
               .attr("r", 3.5);
 
          svg.selectAll(".dot4")
-              .data(avoidance.filter(function(d) { return d.value; }))
+              .data(nuisance.filter(function(d) { return d.value; }))
               .enter().append("circle")
               .attr("class", "dot4")
               .attr("cx", valueline2.x())
@@ -185,12 +190,12 @@ function correlationChart(district){
           svg.append("g")
               .attr("class", "axisRed")
               .attr("transform", "translate( " + width + ", 0 )")
-              .style("fill", "red")		
+              .style("fill", "white")		
               .call(d3.axisRight(y1));
 
          
 
-          var color = d3.scaleOrdinal().domain(['population','safety index','high impact crime','avoidance'])//color in different district, color scale
+          var color = d3.scaleOrdinal().domain(['population','safety index','crime index','nuisance'])//color in different district, color scale
               .range(['steelblue', 'red', 'green','yellow']);
 
           svg.append("g")
