@@ -88,4 +88,10 @@ div.tooltip {
 	bottom: 0;
 	right: 0;
   }
+
+  #yo{
+    background:#cccccc;
+    border:1px solid #000000;
+    }
+ 
 /* #container{width:100%;} */

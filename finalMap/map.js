@@ -61,7 +61,7 @@ d3.json("../data/map.geojson").then(mapDraw);//import mapbox
       renderer = new THREE.WebGLRenderer();
       renderer.name = ('picRenderer')
       //console.log(renderer.name);
-      renderer.setSize(386, 224);
+      renderer.setSize(450, 300);
 
       if(ffff>1){
         var  f = document.getElementById('divPanoramic')
@@ -249,12 +249,12 @@ d3.json("../data/map.geojson").then(mapDraw);//import mapbox
                 divPanoramic.style.display="inline-block";
                 var divCorrelation = document.getElementById('divCorrelation');
                 divCorrelation.style.display="inline-block";
-                divCorrelation.style.width="386";
-                divCorrelation.style.height="224.22";
+                divCorrelation.style.width="450";
+                divCorrelation.style.height="300";
                 var bubble_chart  = document.getElementById('bubble-chart');
                 bubble_chart.style.display="inline-block";//show
-                bubble_chart.style.width="386";
-                bubble_chart.style.height="224.22";
+                bubble_chart.style.width="450";
+                bubble_chart.style.height="300";
                 panoramic(d.properties.district);
                 correlationChart(d.properties.district);
                 safetyChart(d.properties.district, year);
