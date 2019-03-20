@@ -61,7 +61,7 @@ d3.json("data/map.geojson").then(mapDraw);//import mapbox
       renderer = new THREE.WebGLRenderer();
       renderer.name = ('picRenderer')
       //console.log(renderer.name);
-      renderer.setSize(337.5, 300);
+      renderer.setSize(346, 300);
 
       if(ffff>1){
         var  f = document.getElementById('divPanoramic')
@@ -251,15 +251,15 @@ d3.json("data/map.geojson").then(mapDraw);//import mapbox
                 divPanoramic.style.display="inline-block";
                 var divCorrelation = document.getElementById('divCorrelation');
                 divCorrelation.style.display="inline-block";
-                divCorrelation.style.width="337.5";
+                divCorrelation.style.width="346";
                 divCorrelation.style.height="300";
 				var divPopulation = document.getElementById('divPopulation');
                 divPopulation.style.display="inline-block";
-                divPopulation.style.width="337.5";
+                divPopulation.style.width="346";
                 divPopulation.style.height="300";
                 var bubble_chart  = document.getElementById('bubble-chart');
                 bubble_chart.style.display="inline-block";//show
-                bubble_chart.style.width="337.5";
+                bubble_chart.style.width="346";
                 bubble_chart.style.height="300";
                 panoramic(d.properties.district);
                 correlationChart(d.properties.district);

@@ -64,7 +64,22 @@ canvas {
     position: relative;
     margin: auto auto;
 }
-body { font: 12px Arial;}
+body { font: 14px Arial;
+  /* background: red; */
+  /* background: radial-gradient(circle,white,red); */
+  /* background-image: url("./image/HD_101269141_01.jpg"); */
+  background: repeating-radial-gradient(
+    circle,
+  #ffffff,
+  #ffffff 50%,
+  #DA0000 50%,
+  #DA0000
+);
+/* The rectangle in which to repeat.
+   It can be fully wide in this case */
+background-size: 100% 10px;
+
+}
 
 
 div.tooltip {
@@ -129,6 +144,6 @@ div.tooltip {
 
 #divPopulation .bar {
       /*shape-rendering: crispEdges;*/
-    }	
- 
+    }
+
 /* #container{width:100%;} */
