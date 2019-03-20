@@ -49,6 +49,12 @@ canvas {
     margin: auto auto;
 }
 
+#divPopulation{
+    position: relative;
+    /* margin: auto auto; */
+    margin-top: auto auto;
+}
+
 #divCorrelation{
     position: relative;
     /* margin: auto auto; */
@@ -93,5 +99,36 @@ div.tooltip {
     background:#cccccc;
     border:1px solid #000000;
     }
+
+#divPopulation .y.axis line {
+      fill: none;
+    }
+
+#divPopulation .x.axis line {
+      fill: none;
+      stroke: #e0e0e0;
+      shape-rendering: crispEdges;
+    }
+
+#divPopulation .axis path {
+      display: none;
+    }
+
+#divPopulation .brush .extent {
+      fill-opacity: .125;
+      shape-rendering: crispEdges;
+    }
+
+#divPopulation .resize {
+      display: inline !important; /* show when empty */
+      fill: #7A7A7A;
+      fill-opacity: 1;
+      stroke: #7A7A7A;
+      stroke-width: 2px;
+    }
+
+#divPopulation .bar {
+      /*shape-rendering: crispEdges;*/
+    }	
  
 /* #container{width:100%;} */

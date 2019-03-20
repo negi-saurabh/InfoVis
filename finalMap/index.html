@@ -7,11 +7,19 @@
     <link href='https://api.tiles.mapbox.com/mapbox-gl-js/v0.52.0/mapbox-gl.css' rel='stylesheet' />
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
     crossorigin="anonymous">
+	<script src="//d3js.org/d3.v3.min.js"></script>
+    <script>
+     d3version3 = d3
+     window.d3 = null
+    </script>
     <script src='https://api.tiles.mapbox.com/mapbox-gl-js/v0.52.0/mapbox-gl.js'></script>
     <script src="d3.js"></script>
     <script src="jquery-3.3.1.min.js" charset="utf-8"></script>
     <script src="three.js"></script>
     <link rel="stylesheet" type="text/css" href="mapstyle.css">
+	  <style>
+    
+  </style>
     <!-- import d3, mapbox, jquery, bootstrap, css -->
 </head>
 
@@ -42,6 +50,9 @@
             <div class="col-sm" >
                 <svg id='bubble-chart' class="alert alert-warning" role="alert" style="display:none;border:1px solid black;margin: 0 auto"></svg>
             </div>
+			<div class="col-sm" >
+                <svg id="divPopulation" class="alert alert-info" role="alert" style="display:none;border:1px solid black;margin: 0 auto"></svg>
+            </div>
             <!-- <div id="divPanoramic" style="display:none;border:1px solid red;margin: 0 auto"></div> -->
             <div class="col-sm">
                 <svg id="divCorrelation" class="alert alert-info" role="alert" style="display:none;border:1px solid black;margin: 0 auto"></svg>
@@ -62,6 +73,7 @@
     </footer>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/d3-legend/2.13.0/d3-legend.js"></script>
   	<script src="./correlation.js"></script>
+	<script src="./populationChart.js"></script>
     <script src="./safety_bubble.js"></script>
     <script type="text/javascript" src="map.js"></script>
 
