@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name='viewport' content='initial-scale=1,maximum-scale=1,user-scalable=no' />
+    <title>Amsterdam Living Condition</title>
+    <link href='https://api.tiles.mapbox.com/mapbox-gl-js/v0.52.0/mapbox-gl.css' rel='stylesheet' />
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+    crossorigin="anonymous">
+	<script src="//d3js.org/d3.v3.min.js"></script>
+    <script>
+     d3version3 = d3
+     window.d3 = null
+    </script>
+    <script src='https://api.tiles.mapbox.com/mapbox-gl-js/v0.52.0/mapbox-gl.js'></script>
+    <script src="utils/d3.js"></script>
+    <script src="utils/jquery-3.3.1.min.js" charset="utf-8"></script>
+    <script src="utils/three.js"></script>
+    <link rel="stylesheet" type="text/css" href="mapstyle.css">
+	  <style>
+    
+  </style>
+    <!-- import d3, mapbox, jquery, bootstrap, css -->
+</head>
+
+<body>
+
+    <div align="center">
+        <h2>Amsterdam Living Condition Visualization <span class="badge badge-secondary">IV Team11</span></h2>
+        <p>
+            <h4>Current Year: <span class="badge badge-secondary" id="yearFlag">2017</span></h4>
+        </p>
+        <button type="button" class="btn btn-outline-success" id="down">Show previous year</button>
+        <button type="button" class="btn btn-outline-success" id="up">Show next year</button>
+        <br></br>
+    </div>
+    <div class="NB" id="div_123">
+        <p>Each district has its own <b>living condition score</b>, higher living condition score means better living condition. The living condition
+         score are calculated by safety score and population stability score, higher <b>safety score</b> means less secure while higher <b>population stability score</b> means better population stability.</p>
+    </div>
+    <!-- <div id="divTop">
+        <div id="otherDiv" class="otherDivClose" style="display:none;border:1px solid red">Show subgraph there <span id="subgraphFlag">Empty</span></div>
+    </div> -->
+    <div id="wrapper" >
+        <div id="map"></div>
+    </div>
+
+    <div id="divSubgraph" class="container"></div>>
+        <div class="row" class="yo">
+            <div class="col-sm" >
+                <svg id='bubble-chart' class="alert alert-warning" role="alert" style="display:none;border:1px solid black;margin: 0 auto"></svg>
+            </div>
+			<div class="col-sm" >
+                <svg id="divPopulation" class="alert alert-info" role="alert" style="display:none;border:1px solid black;margin: 0 auto"></svg>
+            </div>
+            <!-- <div id="divPanoramic" style="display:none;border:1px solid red;margin: 0 auto"></div> -->
+            <div class="col-sm">
+                <svg id="divCorrelation" class="alert alert-info" role="alert" style="display:none;border:1px solid black;margin: 0 auto"></svg>
+            </div>
+            <div id="divPanoramic" class="rounded" role="alert" classstyle="display:none;border:1px solid black;margin: 0 auto"></div>
+        </div>
+    </div>
+
+
+    <!-- test div control other div -->
+
+
+
+    <footer>
+        <div id="foot" class="container" align="center">
+            <p><b>Group 11</b></p>
+        </div>
+    </footer>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/d3-legend/2.13.0/d3-legend.js"></script>
+  	<script type="text/javascript" src="scripts/correlation.js"></script>
+	<script type="text/javascript" src="scripts/populationChart.js"></script>
+    <script type="text/javascript" src="scripts/safety_bubble.js"></script>
+    <script type="text/javascript" src="scripts/map.js"></script>
+
+</body>
