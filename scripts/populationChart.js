@@ -12,14 +12,31 @@ var data = [],
       main_yAxis,
       mini_width,
       textScale;
-	  
-	  var causes2014 = ["births_2014", "deaths_2014", "people_moving_to_2014","people_moving_away_2014","people_moving_away_2014_relocations_within_ams","people_moving_to_2014_relocations_within_ams"];
-	  var causes2015 = ["births_2015", "deaths_2015", "people_moving_to_2015","people_moving_away_2015","people_moving_away_2015_relocations_within_ams","people_moving_to_2015_relocations_within_ams"];
-	  var causes2016 = ["births_2016", "deaths_2016", "people_moving_to_2016","people_moving_away_2016","people_moving_away_2016_relocations_within_ams","people_moving_to_2016_relocations_within_ams"];
-	  var causes2017 = ["births_2017", "deaths_2017", "people_moving_to_2017","people_moving_away_2017","people_moving_away_2017_relocations_within_ams","people_moving_to_2017_relocations_within_ams"]; 
 
+	  var causes = ["births", "deaths", "people_moving_to","moving_to_relocations_within_ams","people_moving_away","moving_away_relocations_within_ams"]; 
+
+var flagtest3=0;
+var updatePic3 = function () {
+  flagtest3=flagtest3+1;
+  // console.log(flagtest2);
+  return flagtest3;
+}
+  
   function populationChart(dist,year) {
-
+     ffff3=updatePic3();
+  // console.log(ffff3);
+  
+  if(ffff3>1){ 
+    var  f = document.getElementById('divPopulation');
+    var child = f.childNodes;
+    // console.log(child);
+    var i;
+    var childs  = child.length;
+    for (i = 0; i < childs; i++) { 
+      f.removeChild(child[0]);
+    }
+    
+  };
     
 	d3version3.csv("data/ams_stats_districts.csv",function(d){
 	 for(var y=0;y<d.length;y++){
@@ -29,19 +46,19 @@ var data = [],
                 for(var i = 0; i < 6; i++){
                 var my_object = {};
 				my_object.key = i;
-				my_object.country = causes2014[i];
+				my_object.country = causes[i];
 				if(i==0)
 				 {my_object.value = parseInt(d[y].births_2014);}
 				else if(i==1)
                  {my_object.value = parseInt(d[y].deaths_2014);}
 				else if(i==2)
                  {my_object.value = parseInt(d[y].people_moving_to_2014);}
-				else if(i==3)
+			    else if(i==3)
+                 {my_object.value = parseInt(d[y].people_moving_to_2014_relocations_within_ams);}
+				else if(i==4)
                  {my_object.value = parseInt(d[y].people_moving_away_2014);}
-                else if(i==4)
-                 {my_object.value = parseInt(d[y].people_moving_away_2014_relocations_within_ams);}
                 else if(i==5)
-                 {my_object.value = parseInt(d[y].people_moving_to_2014_relocations_within_ams);}				 
+                 {my_object.value = parseInt(d[y].people_moving_away_2014_relocations_within_ams);}				 
 				data.push(my_object);
                }
           }
@@ -51,19 +68,20 @@ var data = [],
            for(var i = 0; i < 6; i++){
                 var my_object = {};
 				my_object.key = i;
-				my_object.country = causes2015[i];
+				my_object.country = causes[i];
 				if(i==0)
 				 {my_object.value = parseInt(d[y].births_2015);}
 				else if(i==1)
                  {my_object.value = parseInt(d[y].deaths_2015);}
 				else if(i==2)
                  {my_object.value = parseInt(d[y].people_moving_to_2015);}
-				else if(i==3)
+			    else if(i==3)
+                 {my_object.value = parseInt(d[y].people_moving_to_2015_relocations_within_ams);}
+				else if(i==4)
                  {my_object.value = parseInt(d[y].people_moving_away_2015);}
-                else if(i==4)
-                 {my_object.value = parseInt(d[y].people_moving_away_2015_relocations_within_ams);}
                 else if(i==5)
-                 {my_object.value = parseInt(d[y].people_moving_to_2015_relocations_within_ams);}				 
+                 {my_object.value = parseInt(d[y].people_moving_away_2015_relocations_within_ams);}
+                				 
 				data.push(my_object);
                }
         }
@@ -72,19 +90,20 @@ var data = [],
            for(var i = 0; i < 6; i++){
                 var my_object = {};
 				my_object.key = i;
-				my_object.country = causes2016[i];
+				my_object.country = causes[i];
 				if(i==0)
 				 {my_object.value = parseInt(d[y].births_2016);}
 				else if(i==1)
                  {my_object.value = parseInt(d[y].deaths_2016);}
 				else if(i==2)
                  {my_object.value = parseInt(d[y].people_moving_to_2016);}
-				else if(i==3)
+			    else if(i==3)
+                 {my_object.value = parseInt(d[y].people_moving_to_2016_relocations_within_ams);}
+				else if(i==4)
                  {my_object.value = parseInt(d[y].people_moving_away_2016);}
-                else if(i==4)
-                 {my_object.value = parseInt(d[y].people_moving_away_2016_relocations_within_ams);}
                 else if(i==5)
-                 {my_object.value = parseInt(d[y].people_moving_to_2016_relocations_within_ams);}				 
+                 {my_object.value = parseInt(d[y].people_moving_away_2016_relocations_within_ams);}
+                				 
 				data.push(my_object);
                } 
         }
@@ -93,19 +112,20 @@ var data = [],
            for(var i = 0; i < 6; i++){
                 var my_object = {};
 				my_object.key = i;
-				my_object.country = causes2017[i];
+				my_object.country = causes[i];
 				if(i==0)
 				 {my_object.value = parseInt(d[y].births_2017);}
 				else if(i==1)
                  {my_object.value = parseInt(d[y].deaths_2017);}
 				else if(i==2)
                  {my_object.value = parseInt(d[y].people_moving_to_2017);}
-				else if(i==3)
+			    else if(i==3)
+                 {my_object.value = parseInt(d[y].people_moving_to_2017_relocations_within_ams);}
+				else if(i==4)
                  {my_object.value = parseInt(d[y].people_moving_away_2017);}
-                else if(i==4)
-                 {my_object.value = parseInt(d[y].people_moving_away_2017_relocations_within_ams);}
                 else if(i==5)
-                 {my_object.value = parseInt(d[y].people_moving_to_2017_relocations_within_ams);}				 
+                 {my_object.value = parseInt(d[y].people_moving_away_2017_relocations_within_ams);}
+                				 
 				data.push(my_object);
                }
         }
