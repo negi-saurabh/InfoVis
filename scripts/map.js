@@ -10,9 +10,10 @@ d3.json("data/map.geojson").then(mapDraw);//import mapbox
         container: 'map', // container id
         style: 'mapbox://styles/mapbox/streets-v8',
         center: [4.9, 52.356677],
-        zoom: 10.7,
+        zoom: 10.7
     })
-
+    //map.scrollWheelZoom.disable();
+    map.scrollZoom.disable();
     map.addControl(new mapboxgl.NavigationControl());
 
     var flagtest=0;
@@ -61,7 +62,7 @@ d3.json("data/map.geojson").then(mapDraw);//import mapbox
       renderer = new THREE.WebGLRenderer();
       renderer.name = ('picRenderer')
       //console.log(renderer.name);
-      renderer.setSize(346, 300);
+      renderer.setSize(330, 240);
 
       if(ffff>1){
         var  f = document.getElementById('divPanoramic')
@@ -251,16 +252,16 @@ d3.json("data/map.geojson").then(mapDraw);//import mapbox
                 divPanoramic.style.display="inline-block";
                 var divCorrelation = document.getElementById('divCorrelation');
                 divCorrelation.style.display="inline-block";
-                divCorrelation.style.width="346";
-                divCorrelation.style.height="300";
+                divCorrelation.style.width="330";
+                divCorrelation.style.height="240";
 				var divPopulation = document.getElementById('divPopulation');
                 divPopulation.style.display="inline-block";
-                divPopulation.style.width="346";
-                divPopulation.style.height="300";
+                divPopulation.style.width="330";
+                divPopulation.style.height="240";
                 var bubble_chart  = document.getElementById('bubble-chart');
                 bubble_chart.style.display="inline-block";//show
-                bubble_chart.style.width="346";
-                bubble_chart.style.height="300";
+                bubble_chart.style.width="330";
+                bubble_chart.style.height="240";
                 panoramic(d.properties.district);
                 correlationChart(d.properties.district);
 				populationChart(d.properties.district, year);

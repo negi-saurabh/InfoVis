@@ -18,7 +18,7 @@
     <script src="utils/three.js"></script>
     <link rel="stylesheet" type="text/css" href="mapstyle.css">
 	  <style>
-    
+
   </style>
     <!-- import d3, mapbox, jquery, bootstrap, css -->
 </head>
@@ -26,38 +26,52 @@
 <body>
 
     <div align="center">
-        <h2>Amsterdam Living Condition Visualization <span class="badge badge-secondary">IV Team11</span></h2>
-        <p>
-            <h4>Current Year: <span class="badge badge-secondary" id="yearFlag">2017</span></h4>
-        </p>
-        <button type="button" class="btn btn-outline-success" id="down">Show previous year</button>
-        <button type="button" class="btn btn-outline-success" id="up">Show next year</button>
-        <br></br>
+        <h2>Amsterdam Living Condition Visualization <span class="badge badge-dark">IV Team11</span></h2>
+        <div align= "left" style="display:inline-block;vertical-align:top;float:left" class="alert alert-success" role="alert">
+        <b>Living Index ↑</b> ⇒ Living Condition ↑<br/>
+        <b>Safety Index ↑</b> ⇒ Security ↓<br/>
+        <b>Population Index↑</b> ⇒ Population stability ↑<br/>
+        </div>
+        <p style="display:inline-block;">
+
+          <button style="display:inline-block;" type="button" class="btn btn-outline-success" id="down">Show previous year</button>
+          <h4 style="display:inline-block;">&nbsp;&nbsp;Current Year: <span class="badge badge-success" id="yearFlag">2017</span>&nbsp;</h4>
+          <button style="display:inline-block;" type="button" class="btn btn-outline-success" id="up">Show next year</button>
+
+          <div align= "left" style="display:inline-block;vertical-align:top;float:right" class="alert alert-success" role="alert">
+          Each district has its <b>living index</b>.</br>
+          It is calculated by <b>safety index</b> & <b>population index</b>.</br>
+          The colors on the map represent the living index.
+          </div>
+        <!-- <button type="button" class="btn btn-outline-success" id="down">Show previous year</button>
+        <button type="button" class="btn btn-outline-success" id="up">Show next year</button> -->
     </div>
-    <div class="NB" id="div_123">
-        <p>Each district has its own <b>living condition score</b>, higher living condition score means better living condition. The living condition
-         score are calculated by safety score and population stability score, higher <b>safety score</b> means less secure while higher <b>population stability score</b> means better population stability.</p>
+    <div align="center" class="NB" id="div_123">
+        <h4><small class="text-muted">Click each district to check in detail</small></h4>
+
     </div>
     <!-- <div id="divTop">
         <div id="otherDiv" class="otherDivClose" style="display:none;border:1px solid red">Show subgraph there <span id="subgraphFlag">Empty</span></div>
     </div> -->
-    <div id="wrapper" >
-        <div id="map"></div>
+    <div id="wrapper"  >
+
+        <div  id="map"></div>
+        <br></br>
     </div>
 
-    <div id="divSubgraph" class="container"></div>>
+    <div id="divSubgraph" class="container"></div>
         <div class="row" class="yo">
             <div class="col-sm" >
-                <svg id='bubble-chart' class="alert alert-warning" role="alert" style="display:none;border:1px solid black;margin: 0 auto"></svg>
+                <svg id='bubble-chart' class="alert alert-success" role="alert" style="display:none;border:1px solid black;margin: 0 auto"></svg>
             </div>
 			<div class="col-sm" >
-                <svg id="divPopulation" class="alert alert-info" role="alert" style="display:none;border:1px solid black;margin: 0 auto"></svg>
+                <svg id="divPopulation" class="alert alert-warning" role="alert" style="display:none;border:1px solid black;margin: 0 auto"></svg>
             </div>
             <!-- <div id="divPanoramic" style="display:none;border:1px solid red;margin: 0 auto"></div> -->
             <div class="col-sm">
                 <svg id="divCorrelation" class="alert alert-info" role="alert" style="display:none;border:1px solid black;margin: 0 auto"></svg>
             </div>
-            <div id="divPanoramic" class="rounded" role="alert" classstyle="display:none;border:1px solid black;margin: 0 auto"></div>
+            <div id="divPanoramic" class="rounded" role="alert" style="display:none;border:0px solid black;margin: 0 auto"></div>
         </div>
     </div>
 
@@ -68,12 +82,13 @@
 
     <footer>
         <div id="foot" class="container" align="center">
-            <p><b>Group 11</b></p>
+          <br></br>
+          <p><b>Information Visualization Team 11</b></p>
         </div>
     </footer>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/d3-legend/2.13.0/d3-legend.js"></script>
   	<script type="text/javascript" src="scripts/correlation.js"></script>
-	<script type="text/javascript" src="scripts/populationChart.js"></script>
+	  <script type="text/javascript" src="scripts/populationChart.js"></script>
     <script type="text/javascript" src="scripts/safety_bubble.js"></script>
     <script type="text/javascript" src="scripts/map.js"></script>
 
