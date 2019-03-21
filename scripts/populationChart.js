@@ -18,18 +18,19 @@ var data = [],
 var flagtest3=0;
 var updatePic3 = function () {
   flagtest3=flagtest3+1;
-  // console.log(flagtest2);
+  //console.log(flagtest3);
   return flagtest3;
 }
   
   function populationChart(dist,year) {
+	  debugger
      ffff3=updatePic3();
   // console.log(ffff3);
   
   if(ffff3>1){ 
     var  f = document.getElementById('divPopulation');
     var child = f.childNodes;
-    // console.log(child);
+    console.log(child);
     var i;
     var childs  = child.length;
     for (i = 0; i < childs; i++) { 
@@ -190,17 +191,12 @@ var updatePic3 = function () {
             .attr("class","brushGroup")
             .attr("transform","translate(" + (main_margin.left + main_width + main_margin.right + mini_margin.left) + "," + mini_margin.top + ")");
 
-    /////////////////////////////////////////////////////////////
-    ////////////////////// Initiate scales //////////////////////
-    /////////////////////////////////////////////////////////////
-
     main_xScale = d3version3.scale.linear().range([0, main_width]);
     mini_xScale = d3version3.scale.linear().range([0, mini_width]);
 
     main_yScale = d3version3.scale.ordinal().rangeBands([0, main_height], 0.4, 0);
     mini_yScale = d3version3.scale.ordinal().rangeBands([0, mini_height], 0.4, 0);
 
-    //Based on the idea from: http://stackoverflow.com/questions/21485339/d3version3-brushing-on-grouped-bar-chart
     main_yZoom = d3version3.scale.linear()
         .range([0, main_height])
         .domain([0, main_height]);
@@ -230,10 +226,6 @@ var updatePic3 = function () {
     mainGroup.append("g")
         .attr("class", "y axis")
         .attr("transform", "translate(-5,0)");
- 
-    /////////////////////////////////////////////////////////////
-    /////////////////////// Update scales ///////////////////////
-    /////////////////////////////////////////////////////////////
 
     //Update the scales
     main_xScale.domain([0, d3version3.max(data, function(d) { return d.value; })]);
@@ -244,27 +236,17 @@ var updatePic3 = function () {
     //Create the visual part of the y axis
     d3version3.select(".mainGroup").select(".y.axis").call(main_yAxis);
 
-    /////////////////////////////////////////////////////////////
-    ///////////////////// Label axis scales /////////////////////
-    /////////////////////////////////////////////////////////////
-
     textScale = d3version3.scale.linear()
       .domain([15,50])
       .range([12,6])
       .clamp(true);
     
-    /////////////////////////////////////////////////////////////
-    ///////////////////////// Create brush //////////////////////
-    /////////////////////////////////////////////////////////////
-
-    //What should the first extent of the brush become - a bit arbitrary this
-    var brushExtent = Math.max( 1, 5 );
+    var brushExtent = 5;
 
     brush = d3version3.svg.brush()
         .y(mini_yScale)
         .extent([mini_yScale(data[0].country), mini_yScale(data[brushExtent].country)])
         .on("brush", brushmove)
-        //.on("brushend", brushend);
 
     //Set up the visual part of the brush
     gBrush = d3version3.select(".brushGroup").append("g")
@@ -290,13 +272,7 @@ var updatePic3 = function () {
       .on("mousedown.brush", brushcenter)
       .on("touchstart.brush", brushcenter);
 
-    ///////////////////////////////////////////////////////////////////////////
-    /////////////////// Create a rainbow gradient - for fun ///////////////////
-    ///////////////////////////////////////////////////////////////////////////
-
     defs = svg.append("defs")
-
-    //Create two separate gradients for the main and mini bar - just because it looks fun
     createGradient("gradient-rainbow-main", "60%");
     createGradient("gradient-rainbow-mini", "13%");
 
@@ -308,11 +284,6 @@ var updatePic3 = function () {
       .attr("width", main_width + main_margin.left)
       .attr("height", main_height);
 
-    /////////////////////////////////////////////////////////////
-    /////////////// Set-up the mini bar chart ///////////////////
-    /////////////////////////////////////////////////////////////
-
-    //The mini brushable bar
     //DATA JOIN
     var mini_bar = d3version3.select(".miniGroup").selectAll(".bar")
       .data(data, function(d) { return d.key; });
@@ -346,10 +317,6 @@ var updatePic3 = function () {
   //Function runs on a brush move - to update the big bar chart
   function update() {
 
-    /////////////////////////////////////////////////////////////
-    ////////// Update the bars of the main bar chart ////////////
-    /////////////////////////////////////////////////////////////
-
     //DATA JOIN
     var bar = d3version3.select(".mainGroup").selectAll(".bar")
         .data(data, function(d) { return d.key; });
@@ -377,11 +344,6 @@ var updatePic3 = function () {
       .remove();
 
   }//update
-
-  /////////////////////////////////////////////////////////////
-  ////////////////////// Brush functions //////////////////////
-  /////////////////////////////////////////////////////////////
-
   //First function that runs on a brush move
   function brushmove() {
 
@@ -397,10 +359,6 @@ var updatePic3 = function () {
     //Update the label size
     d3version3.selectAll(".y.axis text")
       .style("font-size", textScale(selected.length));
-    
-    /////////////////////////////////////////////////////////////
-    ///////////////////// Update the axes ///////////////////////
-    /////////////////////////////////////////////////////////////
 
     //Reset the part that is visible on the big chart
     var originalRange = main_yZoom.range();
@@ -430,12 +388,6 @@ var updatePic3 = function () {
     
   }//brushmove
 
-  /////////////////////////////////////////////////////////////
-  ////////////////////// Click functions //////////////////////
-  /////////////////////////////////////////////////////////////
-
-  //Based on http://bl.ocks.org/mbostock/6498000
-  //What to do when the user clicks on another location along the brushable bar chart
   function brushcenter() {
     var target = d3version3.event.target,
         extent = brush.extent(),
@@ -452,10 +404,6 @@ var updatePic3 = function () {
         .call(brush.event);
 
   }//brushcenter
-
-  /////////////////////////////////////////////////////////////
-  ///////////////////// Scroll functions //////////////////////
-  /////////////////////////////////////////////////////////////
 
   function scroll() {
 
@@ -482,11 +430,6 @@ var updatePic3 = function () {
 
   }//scroll
 
-  /////////////////////////////////////////////////////////////
-  ///////////////////// Helper functions //////////////////////
-  /////////////////////////////////////////////////////////////
-
-  //Create a gradient 
   function createGradient(idName, endPerc) {
 
     var coloursRainbow = ["#EFB605", "#E9A501", "#E48405", "#E34914", "#DE0D2B", "#CF003E", "#B90050", "#A30F65", "#8E297E", "#724097", "#4F54A8", "#296DA4", "#0C8B8C", "#0DA471", "#39B15E", "#7EB852"];
@@ -502,5 +445,3 @@ var updatePic3 = function () {
       .attr("offset", function(d,i) { return i/(coloursRainbow.length-1); })   
       .attr("stop-color", function(d) { return d; });
   }//createGradient
-
-  //init("Houthavens",2014);
