@@ -8,8 +8,8 @@ var updatePic1 = function () {
 function correlationChart(district){
   ffff1=updatePic1();
   // console.log(ffff1);
-  
-  if(ffff1>1){ 
+
+  if(ffff1>1){
     var  f = document.getElementById('divCorrelation')
     var child = f.childNodes;
     // console.log(child);
@@ -36,7 +36,7 @@ function correlationChart(district){
               population.push({"key": 2016, "value": parseInt(files[0][i].population_2016)});
               population.push({"key": 2017, "value": parseInt(files[0][i].population_2017)});
               //population.push({"key": 2018, "value": parseInt(files[0][i].population_2018)});
-             
+
         }
         };
 
@@ -50,7 +50,7 @@ function correlationChart(district){
               crimeindex.push({"key": 2014, "value": parseInt(files[1][i].crime_index_2014)});
               crimeindex.push({"key": 2015, "value": parseInt(files[1][i].crime_index_2015)});
               crimeindex.push({"key": 2016, "value": parseInt(files[1][i].crime_index_2016)});
-              crimeindex.push({"key": 2017, "value": parseInt(files[1][i].crime_index_2017)}); 
+              crimeindex.push({"key": 2017, "value": parseInt(files[1][i].crime_index_2017)});
 
               nuisance.push({"key": 2014, "value": parseInt(files[1][i].nuisance_2014)});
               nuisance.push({"key": 2015, "value": parseInt(files[1][i].nuisance_2015)});
@@ -112,7 +112,7 @@ function correlationChart(district){
               .attr("class", "line")
               .style("stroke", "steelblue")
               .style("fill","none")
-              .style('stroke-width','3px')
+              .style('stroke-width','2px')
               .attr("d", valueline);
 
           //Add the valueline2 path.
@@ -120,7 +120,7 @@ function correlationChart(district){
               .data([safetyIndex])
               .attr("class", "line")
               .style("stroke", "red")
-              .style('stroke-width','3px')
+              .style('stroke-width','2px')
               .style("fill","none")
               .attr("d", valueline2);
 
@@ -129,18 +129,18 @@ function correlationChart(district){
               .data([crimeindex])
               .attr("class", "line")
               .style("stroke", "green")
-              .style('stroke-width','3px')
+              .style('stroke-width','2px')
               .style("fill","none")
-              .attr("d", valueline2); 
-          
+              .attr("d", valueline2);
+
           //add the valueline3 path.
           svg.append("path")
               .data([nuisance])
               .attr("class", "line")
               .style("stroke", "yellow")
-              .style('stroke-width','3px')
+              .style('stroke-width','2px')
               .style("fill","none")
-              .attr("d", valueline2); 
+              .attr("d", valueline2);
 
           svg.selectAll(".dot")
               .data(safetyIndex.filter(function(d) { return d.value; }))
@@ -190,10 +190,10 @@ function correlationChart(district){
           svg.append("g")
               .attr("class", "axisRed")
               .attr("transform", "translate( " + width + ", 0 )")
-              .style("fill", "white")		
+              .style("fill", "white")
               .call(d3.axisRight(y1));
 
-         
+
 
           var color = d3.scaleOrdinal().domain(['population','safety index','crime index','nuisance'])//color in different district, color scale
               .range(['steelblue', 'red', 'green','yellow']);
@@ -203,13 +203,13 @@ function correlationChart(district){
               .style("font", "12px times")
               .attr("transform",
               "translate(" + 130 + "," + 120 + ")");
-          
+
           debugger
           var legendOrdinal = d3.legendColor()
               .shape("path", d3.symbol().type(d3.symbolSquare).size(60)())
               .shapePadding(3)
               .scale(color);
-    
+
           svg.select(".legendOrdinal")
               .call(legendOrdinal);
 
