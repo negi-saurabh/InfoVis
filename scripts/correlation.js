@@ -66,8 +66,8 @@ function correlationChart(district){
         // console.log(population);
         // console.log(safetyIndex);
 
-        var margin = {top: 10, right: 30, bottom: 30, left: 60},
-            width = 384 - margin.left - margin.right,
+        var margin = {top: 10, right: 30, bottom: 30, left: 40},
+            width = 292 - margin.left - margin.right,
             format = d3.format(",d"),
             height = 216 - margin.top - margin.bottom;
 
@@ -200,13 +200,14 @@ function correlationChart(district){
 
           svg.append("g")
               .attr("class", "legendOrdinal")
+              .style("font", "12px times")
               .attr("transform",
-              "translate(" + 180 + "," + 130 + ")");
+              "translate(" + 130 + "," + 120 + ")");
           
           debugger
           var legendOrdinal = d3.legendColor()
-              .shape("path", d3.symbol().type(d3.symbolSquare).size(100)())
-              .shapePadding(1)
+              .shape("path", d3.symbol().type(d3.symbolSquare).size(60)())
+              .shapePadding(3)
               .scale(color);
     
           svg.select(".legendOrdinal")

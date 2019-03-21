@@ -119,7 +119,7 @@ function safetyChart(district, year){
       var out = out1.map(function(d){ d.key = d[0]; d.value = d[1]; return d; });
       // console.log(out);
       // set the dimensions and margins of the graph
-      var margin = {top: 10, right: 10, bottom: 50, left: 30},
+      var margin = {top: 25, right: 10, bottom: 50, left: 2},
       width = 380 - margin.left - margin.right,
       format = d3.format(",d"),
       height = 250 - margin.top - margin.bottom;
@@ -153,7 +153,7 @@ function safetyChart(district, year){
       var pack = d3.pack()
           // .sum(function(d) { return d.value; })
           // .sort(function(a, b) { return b.value - a.value })
-          .size([200, 200])
+          .size([180, 180])
           .padding(1.5);
 
 
@@ -207,24 +207,33 @@ function safetyChart(district, year){
         var xScale = d3.scaleBand().domain([0,10, 20, 30, 40 , 50 , 60 , 70 , 80 , 90]).rangeRound([0, width]).padding(0.1),
         yScale = d3.scaleLinear().domain([0, d3.max(values)]).rangeRound([height, 0]);
 
-        svg.append('g')
-          .attr('transform', 'translate(0,' + height + ')')
-          .attr('class', 'x axis')
-          .call(d3.axisBottom(xScale));
+        // svg.append('g')
+        //   .attr('transform', 'translate(0,' + height + ')')
+        //   .attr('class', 'x axis')
+        //   .call(d3.axisBottom(xScale));
 
 
-        svg.append('g')
-          .attr('transform', 'translate(0,0)')
-          .attr('class', 'y axis')
-          .call(d3.axisLeft(yScale).ticks(10));
+        // svg.append('g')
+        //   .attr('transform', 'translate(0,0)')
+        //   .attr('class', 'y axis')
+        //   .call(d3.axisLeft(yScale).ticks(10));
+
+        svg.attr('class', 'headerText')
+          .append('text')
+          .attr("id", "titleBar")
+          .attr('transform', "translate(" + 100 + "," + 5 + ")")
+          .attr('text-anchor', 'middle')
+          .attr('font-weight', 600)
+          .text('Safety Index parameters');
 
         svg.append("text")
           .attr("class", "x label")
           .attr("text-anchor", "end")
-          .attr("x", width-10)
-          .attr("y", height - 8)
-          .style("font", "12px times")
-          .text("Saferty Index parameters in "+district +" for " +year)
+          .attr("x", width-250)
+          .attr("y", height+10)
+          .style("text-anchor", "middle")
+          .style("font", "16px times")
+          .text(district +" in " +year)
 
         svg.append("text")
           .attr("class", "y label")
@@ -237,6 +246,7 @@ function safetyChart(district, year){
       node.append("text")
           .attr("dy", ".2em")
           .style("text-anchor", "middle")
+          .style("font", "12px times")
           .style("pointer-events", "none")
           .text(function(d) {return d.data.value});
 
@@ -263,13 +273,14 @@ function safetyChart(district, year){
 
       svg.append("g")
           .attr("class", "legendOrdinal")
+          .style("font", "10.5px times")
           .attr("transform",
-          "translate(" + 205 + "," + margin.top + ")");
+          "translate(" + 185 + "," + margin.top + ")");
       
       debugger
       var legendOrdinal = d3.legendColor()
-          .shape("path", d3.symbol().type(d3.symbolSquare).size(100)())
-          .shapePadding(1)
+          .shape("path", d3.symbol().type(d3.symbolSquare).size(60)())
+          .shapePadding(2.5)
           .scale(color);
 
       svg.select(".legendOrdinal")
