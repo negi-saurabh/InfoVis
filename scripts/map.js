@@ -220,11 +220,10 @@ d3.json("data/map.geojson").then(mapDraw);//import mapbox
             .style('cursor', 'pointer')
             .on('mouseover', function(d){//mouse move on
                 tooltip.style("opacity", 1)
-                .html(d.properties['district']+'<br/>'+'Living Condition Score:     '+d.properties['living_condition_score_'+year]
-                +'<br/>'+'Safety Score: '+d.properties['safety_index_'+year]+'<br/>'+'Population Stability Score: '+d.properties['population_stability_score_'+year])
+                .html('<h5>'+'<b>'+d.properties['district']+'</b>'+'<br/>'+'Living Condition Score:     '+d.properties['living_condition_score_'+year]
+                + '<br/>' + 'Safety Score: ' + d.properties['safety_index_' + year] + '<br/>' + 'Population Stability Score: ' + d.properties['population_stability_score_' + year] + '</h5>')
                 .style("left", (d3.event.pageX + 10) + "px")
                 .style("top", (d3.event.pageY - 40) + "px");
-
                 var self = d3.select(this);
                 self.style('fill', 'red');
             })
