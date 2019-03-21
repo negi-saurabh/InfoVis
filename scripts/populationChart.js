@@ -13,7 +13,7 @@ var data = [],
       mini_width,
       textScale;
 
-	  var causes = ["births", "deaths", "people_moving_to","moving_to_relocations_within_ams","people_moving_away","moving_away_relocations_within_ams"]; 
+	  var causes = ["Births", "Deaths", "Moving to","WithinAMS(to)","Moving away","WithinAMS(away)"]; 
 
 var flagtest3=0;
 var updatePic3 = function () {
@@ -129,20 +129,19 @@ var updatePic3 = function () {
 				data.push(my_object);
                }
         }
-		else
-		{window.alert("Fail");}
       }
 	 } 
 	 var zoomer = d3version3.behavior.zoom()
         .on("zoom", null);
 
-    var main_margin = {top: 10, right: 10, bottom: 30, left: 100},
-        main_width = 500 - main_margin.left - main_margin.right,
-        main_height = 400 - main_margin.top - main_margin.bottom;
+    var main_margin = {top: 35, right: 150, bottom: 70, left: 100},
+        main_width = 380 - main_margin.left - main_margin.right,
+        main_height = 250 - main_margin.top - main_margin.bottom;
 
-    var mini_margin = {top: 10, right: 10, bottom: 30, left: 10},
-        mini_height = 400 - mini_margin.top - mini_margin.bottom;
-    mini_width = 100 - mini_margin.left - mini_margin.right;
+    var mini_margin = {top: 35, right: 5, bottom: 70, left: 5},
+	    mini_width = 76 - mini_margin.left - mini_margin.right;
+        mini_height = 250 - mini_margin.top - mini_margin.bottom;
+        
 
     svg = d3version3.select("#divPopulation").append("svg")
         .attr("class", "svgWrapper")
@@ -158,6 +157,22 @@ var updatePic3 = function () {
         .on("touchstart.zoom", null)
         .on("touchmove.zoom", null)
         .on("touchend.zoom", null);
+	
+	svg.attr('class', 'headerText')
+          .append('text')
+          .attr("id", "titleBar")
+          .attr('transform', "translate(" + 150 + "," + 15 + ")")
+          .attr('text-anchor', 'middle')
+          .attr('font-weight', 600)
+          .text('Population Factors');
+	
+	svg.attr('class', 'headerText')
+          .append('text')
+          .attr("id", "titleBar")
+          .attr('transform', "translate(" + 150 + "," + 30 + ")")
+          .attr('text-anchor', 'middle')
+          .attr('font-weight', 200)
+          .text(dist + " in " + year);
 
     var mainGroup = svg.append("g")
             .attr("class","mainGroupWrapper")

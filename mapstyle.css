@@ -118,11 +118,12 @@ div.tooltip {
 
 #divPopulation .y.axis line {
       fill: none;
+	  stroke: black;
     }
 
 #divPopulation .x.axis line {
       fill: none;
-      stroke: #e0e0e0;
+      stroke: black;
       shape-rendering: crispEdges;
     }
 
