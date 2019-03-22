@@ -1,5 +1,4 @@
-var data = [],
-      svg,
+var   svg,
       defs,
       gBrush,
       brush,
@@ -12,7 +11,7 @@ var data = [],
       main_yAxis,
       mini_width,
       textScale;
-
+      var data=[];
 	  var causes = ["Births", "Deaths", "Moving to","WithinAMS(to)","Moving away","WithinAMS(away)"]; 
 
 var flagtest3=0;
@@ -23,22 +22,22 @@ var updatePic3 = function () {
 }
   
   function populationChart(dist,year) {
-	  debugger
-     ffff3=updatePic3();
+	  debugger  
+	ffff3=updatePic3();
   // console.log(ffff3);
   
-  if(ffff3>1){ 
-    var  f = document.getElementById('divPopulation');
-    var child = f.childNodes;
-    console.log(child);
-    var i;
-    var childs  = child.length;
-    for (i = 0; i < childs; i++) { 
+     if(ffff3>1){ 
+     var  f = document.getElementById('divPopulation');
+     var child = f.childNodes;
+     console.log(child);
+     var b;
+     var childs  = child.length;
+     for (b = 0; b < childs; b++) { 
       f.removeChild(child[0]);
     }
     
   };
-    
+    data.length=0;
 	d3version3.csv("data/ams_stats_districts.csv",function(d){
 	 for(var y=0;y<d.length;y++){
       if(d[y].district==dist){
@@ -143,7 +142,7 @@ var updatePic3 = function () {
 	    mini_width = 76 - mini_margin.left - mini_margin.right;
         mini_height = 250 - mini_margin.top - mini_margin.bottom;
         
-
+     
     svg = d3version3.select("#divPopulation").append("svg")
         .attr("class", "svgWrapper")
         .attr("width", main_width + main_margin.left + main_margin.right + mini_width + mini_margin.left + mini_margin.right)
@@ -445,3 +444,4 @@ var updatePic3 = function () {
       .attr("offset", function(d,i) { return i/(coloursRainbow.length-1); })   
       .attr("stop-color", function(d) { return d; });
   }//createGradient
+
