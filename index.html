@@ -30,19 +30,19 @@
 
     <div align="center">
         <h2>Amsterdam Living Condition Visualization <span class="badge badge-dark">IV Team11</span></h2>
-        <div align= "left" style="display:inline-block;vertical-align:top;float:left" class="alert alert-success" role="alert">
-        <b>Living Index ↑</b> ⇒ Living Condition ↑<br/>
-        <b>Safety Index ↑</b> ⇒ Security ↓<br/>
-        <b>Population Index↑</b> ⇒ Population stability ↑<br/>
+        <div align= "left" style="margin-left: 10px;display:inline-block;vertical-align:top;float:left" class="alert alert-primary" role="alert">
+        Higher <b>Living Index</b> ⇒ Better Living Condition<br/>
+        Higher <b>Safety Index</b> ⇒ Less Safety<br/>
+        Higher <b>Population Index</b> ⇒ Higher Population Stability<br/>
         </div>
         <p style="display:inline-block;">
 
-          <button style="display:inline-block;" type="button" class="btn btn-outline-success" id="down">Show previous year</button>
-          <h4 style="display:inline-block;">&nbsp;&nbsp;Current Year: <span class="badge badge-success" id="yearFlag">2017</span>&nbsp;</h4>
-          <button style="display:inline-block;" type="button" class="btn btn-outline-success" id="up">Show next year</button>
+          <button style="display:inline-block;" type="button" class="btn btn-outline-info" id="down">Show previous year</button>
+          <h4 style="display:inline-block;">&nbsp;&nbsp;Current Year: <span class="badge badge-info" id="yearFlag">2017</span>&nbsp;</h4>
+          <button style="display:inline-block;" type="button" class="btn btn-outline-info" id="up">Show next year</button>
 
-          <div align= "left" style="display:inline-block;vertical-align:top;float:right" class="alert alert-success" role="alert">
-          Each district has its <b>living index</b>.</br>
+          <div align= "left" style="margin-right: 10px;display:inline-block;vertical-align:top;float:right" class="alert alert-primary" role="alert">
+          Each district has its own <b>living index</b>.</br>
           It is calculated by <b>safety index</b> & <b>population index</b>.</br>
           The colors on the map represent the living index.
           </div>
@@ -59,12 +59,12 @@
     <div id="wrapper"  >
 
         <div  id="map"></div>
-        <br></br>
+        </br>
     </div>
 
     <div id="divSubgraph" class="container"></div>
         <div class="row" class="yo">
-            <div class="col-sm" >
+            <div class="col-sm" style="margin-left: 10px;" >
                 <svg id='bubble-chart' class="alert alert-dark" role="alert" style="display:none;border:1px solid black;margin: 0 auto"></svg>
             </div>
 			<div class="col-sm" >
@@ -74,7 +74,7 @@
             <div class="col-sm">
                 <svg id="divCorrelation" class="alert alert-dark" role="alert" style="display:none;border:1px solid black;margin: 0 auto"></svg>
             </div>
-            <div id="divPanoramic" class="rounded" role="alert" style="display:none;border:0px solid black;margin: 0 auto"></div>
+            <div id="divPanoramic" class="rounded" role="alert" style="display:none;border:1px solid black;margin: 0 auto;margin-right: 28px;width:351px;height:238.5px"></div>
         </div>
     </div>
 
@@ -83,12 +83,12 @@
 
 
 
-    <footer>
+    <!-- <footer>
         <div id="foot" class="container" align="center">
-          <br></br>
+          </br>
           <p><b>Information Visualization Team 11</b></p>
         </div>
-    </footer>
+    </footer> -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/d3-legend/2.13.0/d3-legend.js"></script>
   	<script type="text/javascript" src="scripts/correlation.js"></script>
 	  <script type="text/javascript" src="scripts/populationChart.js"></script>

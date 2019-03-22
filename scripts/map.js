@@ -62,7 +62,7 @@ d3.json("data/map.geojson").then(mapDraw);//import mapbox
       renderer = new THREE.WebGLRenderer();
       renderer.name = ('picRenderer')
       //console.log(renderer.name);
-      renderer.setSize(330, 240);
+      renderer.setSize(350, 238);
 
       if(ffff>1){
         var  f = document.getElementById('divPanoramic')
@@ -220,12 +220,16 @@ d3.json("data/map.geojson").then(mapDraw);//import mapbox
             .style('cursor', 'pointer')
             .on('mouseover', function(d){//mouse move on
                 tooltip.style("opacity", 1)
-                .html('<h5>'+'<b>'+d.properties['district']+'</b>'+'<br/>'+'Living Condition Score:     '+d.properties['living_condition_score_'+year]
-                + '<br/>' + 'Safety Score: ' + d.properties['safety_index_' + year] + '<br/>' + 'Population Stability Score: ' + d.properties['population_stability_score_' + year] + '</h5>')
+                .html('<h5>'+'<b>'+'&nbsp;'+d.properties['district']+'</b>'+'&nbsp;'+'<br/>'+'&nbsp;Living Index:     '+d.properties['living_condition_score_'+year]
+                + '<br/>' + '&nbsp;Safety Index: ' + d.properties['safety_index_' + year] + '<br/>' + '&nbsp;Population Index: ' + d.properties['population_stability_score_' + year] + '&nbsp;'+'</h5>')
+                .style("background-color", "#F9EBEA")
+                .style("border", "solid")
+                .style("border-width", "0.4px")
+                .style("border-radius","5px")
                 .style("left", (d3.event.pageX + 10) + "px")
                 .style("top", (d3.event.pageY - 40) + "px");
                 var self = d3.select(this);
-                self.style('fill', 'white');
+                self.style('fill', '#FDFEFE');
             })
             .on('mouseout', function(d, i){//mouse move out
                 tooltip.style("opacity", 0);

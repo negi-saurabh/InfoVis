@@ -6,8 +6,8 @@
 } */
 #map {
     position: relative;
-    width: 100%;
-    height: 600px;
+    width: 75%;
+    height: 610px;
     margin: auto auto;
 }
 
@@ -68,7 +68,7 @@ canvas {
 body { font: 14px Arial;
   /* background: red; */
   /* background: radial-gradient(circle,white,red); */
-  background-image: url("./image/3166006049_516bc166ff_o.jpg");
+  background-image: url("./image/1.jpg");
   /* background: repeating-radial-gradient(
     circle,
   #ffffff,
@@ -78,7 +78,7 @@ body { font: 14px Arial;
 ); */
 /* The rectangle in which to repeat.
    It can be fully wide in this case */
-/* background-size: 100% 10px; */
+background-size: 100%;
 
 }
 
