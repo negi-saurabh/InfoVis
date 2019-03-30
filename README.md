@@ -1,20 +1,19 @@
 # Information Visualization - Team 11
 
-# Get start
-- python -m http.server 8888
-- open your browser: http://localhost:8888/
+# Get started
+- [See the Demo](https://chas1ngwind.github.io/City-of-Amsterdam/)
 
 # Score
-### Population Stability Score
-- higher score means better population stability
-- PopulationStabilityScore = {[Normalized[min:0,max:1]:(people working/population)]*100} + {[Normalized[min:0,max:1]:(people moving to/people moving away)]*100}
+### Population Stability Index
+- A higher population index represents a better population stability
+- Population_Stability_Score = {[Normalized[min:0,max:1]:(people working/population)]*100} + {[Normalized[min:0,max:1]:(people moving to/people moving away)]*100}
 
 ### Safety Score
-- higher score means less secure
-- Safety Score = Safety Index
+- a higher safety index represents less secure
+- Safety_Index = Safety Index
 
-### Living Condition Score:
-- higher score means better living condition
-- LivingConditionScore = PopulationStabilityScore - 0.5 * SafetyScore +100
-- Maxium LivingConditionScore is 120
+### Living Condition Score
+- A higher living index represents a better living condition
+- Living_Condition_Score = PopulationStabilityScore - 0.5 * SafetyScore + 100
+- Maximum Living_Condition_Score is 120
 - Missing data is set to 0
