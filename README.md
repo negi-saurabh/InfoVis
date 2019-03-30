@@ -1,7 +1,7 @@
 # Information Visualization - Team 11
 
 # Get started
-- [See the Demo](https://chas1ngwind.github.io/City-of-Amsterdam/)
+- [See the Demo](https://chas1ngwind.github.io/City-of-Amsterdam/){:target=&quot;_blank&quot;}
 
 # Score
 ### Population Stability Index
