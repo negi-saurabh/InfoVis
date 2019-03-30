@@ -1,7 +1,7 @@
 # Information Visualization - Team 11
 
 # Get started
-- [See the Demo](https://chas1ngwind.github.io/City-of-Amsterdam/){:target=_blank;}
+- [See the Demo](https://chas1ngwind.github.io/City-of-Amsterdam/)
 - <a href="https://chas1ngwind.github.io/City-of-Amsterdam/" target="_blank">See the Demo</a>
 
 # Score
